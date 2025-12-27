@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simon Says</title>
+  <link rel="stylesheet" href="simon.css">
+  <script src="simon.js" defer></script>
+</head>
+<body>
+
+  
+  <header class="top-bar">
+    <h1>Simon says</h1>
+  </header>
+
+  
+  <div class="score-card">
+    <div class="score-box">
+      <p>⭐ Score</p>
+      <h2 id="score"></h2>
+    </div>
+    <div class="score-box">
+      <p>🎯 Level</p>
+      <h2 id="level"></h2>
+    </div>
+  </div>
+
+
+  <div class="board-wrapper">
+    <div class="game-board">
+      <button class="pad blue" id="blue"></button>
+      <button class="pad green" id="green"></button>
+      <button class="pad red" id="red"></button>
+      <button class="pad yellow" id="yellow"></button>
+    </div>
+
+
+    <button class="center-btn" onclick="start()">Start</button>
+  </div>
+
+</body>
+</html>

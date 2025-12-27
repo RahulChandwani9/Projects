@@ -1,0 +1,144 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #001a1a;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    color: #0ff;
+    text-shadow: 0 0 7px #0ff, 0 0 15px #0ff;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+}
+h4{
+    color: #0ff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    position: relative;
+}
+
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #ff1aff;
+    text-shadow: 0 0 7px #ff1aff, 0 0 15px #ff1aff;
+    cursor: pointer;
+    font-size: 100px;
+}
+
+
+.board::before,
+.board::after,
+.board div::before,
+.board div::after {
+    content: '';
+    position: absolute;
+    background-color: #0ff;
+    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    border-radius: 2px;
+}
+
+
+.board::before {
+    top: 0;
+    left: 33.33%;
+    width: 4px;
+    height: 100%;
+}
+
+.board::after {
+    top: 0;
+    left: 66.66%;
+    width: 4px;
+    height: 100%;
+}
+
+.board div::before {
+    top: 33.33%;
+    left: 0;
+    height: 4px;
+    width: 100%;
+}
+
+.board div::after {
+    top: 66.66%;
+    left: 0;
+    height: 4px;
+    width: 100%;
+}
+
+.btn{
+    margin-top: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #0ff;
+    background-color: #001a1a;
+    color: #0ff;
+    cursor: pointer;
+}
+.btn:hover{
+    padding: 7px;
+
+}
+.result {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    height: 70px;
+    width: 650px;
+    padding: 20px;
+
+    background-color: #001a1a;
+    color: #ff1aff;
+
+    border: 2px solid #ff1aff;
+    box-shadow: 0 0 20px #ff1aff;
+    border-radius: 12px;
+
+    display: none;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+
+    text-shadow: 0 0 10px #ff1aff, 0 0 20px #ff1aff;
+    z-index: 5;
+}
+
+.watch{
+    background-color: #001a1a;
+    border:2px solid #0ff;
+    height: 180px;
+    width: 130px;
+    position: relative;
+    left: 450px;
+    top: 20px;
+    color: #0ff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+}
+.time{
+    font-size: 40px;
+}

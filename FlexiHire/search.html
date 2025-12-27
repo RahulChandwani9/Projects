@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results - FlexiHire</title>
+  <link rel="stylesheet" href="search.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"/>
+</head>
+<body>
+    <div class="navbar d-flex">
+        <div class="name"><a href="./project.html"><i class="fa-solid fa-dove"></i> FlexiHire</a></div>
+    
+        <div class="d-flex gap">
+            <!-- Search Bar -->
+            <div class="search">
+                <input placeholder="Search..." type="text" id="searchInput" autocomplete="off">
+                <div id="suggestions" class="suggestions"></div>
+                <button type="submit" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
+              
+          <div class="login d-flex">
+            <div><a href="./login.html">Login</a></div>
+            <div><a href="./about.html">About Us</a></div>
+          </div>
+          <div class="d-flex" style="align-items: center;">|</div>
+          <div class="d-flex" style="align-items: center;">
+            <i class="fa-solid fa-circle-info" style="color: #000000;"></i>
+          </div>
+        </div>
+      </div>
+
+  <!-- Job Results -->
+   <div id="middle">
+  <div class="job-container">
+    <!-- Amazon -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+      <p><strong>Skills:</strong> Backend</p>
+      <p><strong>Salary:</strong> $150 - $200</p>
+      <p><strong>Deadline:</strong> Sep 20, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Google -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+      <p><strong>Skills:</strong> Frontend</p>
+      <p><strong>Salary:</strong> $200 - $300</p>
+      <p><strong>Deadline:</strong> Oct 15, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Microsoft -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+      <p><strong>Skills:</strong> Fullstack</p>
+      <p><strong>Salary:</strong> $180 - $250</p>
+      <p><strong>Deadline:</strong> Nov 1, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Infosys -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="Infosys">
+      <p><strong>Skills:</strong> Java, Spring Boot</p>
+      <p><strong>Salary:</strong> $120 - $180</p>
+      <p><strong>Deadline:</strong> Oct 5, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Wipro -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="Uber">
+      <p><strong>Skills:</strong> Cloud, AWS</p>
+      <p><strong>Salary:</strong> $130 - $190</p>
+      <p><strong>Deadline:</strong> Nov 10, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Accenture -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+      <p><strong>Skills:</strong> DevOps, Kubernetes</p>
+      <p><strong>Salary:</strong> $160 - $220</p>
+      <p><strong>Deadline:</strong> Dec 1, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- IBM -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM">
+      <p><strong>Skills:</strong> AI, ML</p>
+      <p><strong>Salary:</strong> $180 - $240</p>
+      <p><strong>Deadline:</strong> Nov 20, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+
+    <!-- Meta / Facebook -->
+    <div class="job-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Meta">
+      <p><strong>Skills:</strong> Frontend, React</p>
+      <p><strong>Salary:</strong> $200 - $300</p>
+      <p><strong>Deadline:</strong> Dec 10, 2025</p>
+      <a href="#" class="apply-btn">Apply here!</a>
+    </div>
+    <div class="job-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_B%C3%A9lo.svg" alt="Airbnb">
+        <p><strong>Skills:</strong> Java, Spring Boot</p>
+        <p><strong>Salary:</strong> $120 - $180</p>
+        <p><strong>Deadline:</strong> Oct 5, 2025</p>
+        <a href="#" class="apply-btn">Apply here!</a>
+      </div>
+      <!-- Spotify -->
+        <div class="job-card">
+            <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify">
+            </div>
+            <h3>Spotify</h3>
+            <p><strong>Skills:</strong> Mobile App, Backend</p>
+            <p><strong>Salary:</strong> $230 - $400</p>
+            <p><strong>Deadline:</strong> Dec 12, 2025</p>
+            <a href="#" class="apply-btn">Apply here!</a>
+        </div>
+        <!-- Netflix -->
+        <div class="job-card">
+            <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+            </div>
+            <h3>Netflix</h3>
+            <p><strong>Skills:</strong> Frontend, UI/UX</p>
+            <p><strong>Salary:</strong> $250 - $400</p>
+            <p><strong>Deadline:</strong> Dec 5, 2025</p>
+            <a href="#" class="apply-btn">Apply here!</a>
+        </div>
+        
+        <!-- Dell -->
+        <div class="job-card">
+            <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg" alt="Dell">
+            </div>
+            <h3>Dell</h3>
+            <p><strong>Skills:</strong> Cloud, Hardware</p>
+            <p><strong>Salary:</strong> $220 - $380</p>
+            <p><strong>Deadline:</strong> Nov 28, 2025</p>
+            <a href="#" class="apply-btn">Apply here!</a>
+         </div>
+  
+  
+  
+  </div>
+  </div>
+  <!-- JS for Search -->
+  <script>
+    
+const companies = [
+  "Amazon",
+  "Google",
+  "Microsoft",
+  "Airbnb",
+  "Uber",
+  "Apple",
+  "IBM",
+  "Meta",
+  "Netflix",
+  "Dell",
+  "Spotify"
+
+];
+
+const input = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestions");
+
+input.addEventListener("input", function() {
+  const value = input.value.toLowerCase();
+  suggestionsBox.innerHTML = "";
+  if(value){
+    const filtered = companies.filter(c => c.toLowerCase().includes(value));
+    filtered.forEach(company => {
+      const div = document.createElement("div");
+      div.textContent = company;
+      div.addEventListener("click", () => {
+        input.value = company;
+        suggestionsBox.innerHTML = "";
+        redirectSearch(); // optional: redirect immediately
+      });
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = filtered.length ? "block" : "none";
+  } else {
+    suggestionsBox.style.display = "none";
+  }
+});
+
+// Close suggestions if clicked outside
+document.addEventListener("click", e => {
+  if(!input.contains(e.target) && !suggestionsBox.contains(e.target)){
+    suggestionsBox.style.display = "none";
+  }
+});
+
+
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q")?.toLowerCase() || "";
+    document.getElementById("searchInput").value = params.get("q") || "";
+
+    const jobCards = document.querySelectorAll(".job-card");
+    let matchFound = false;
+
+    if(query){
+      jobCards.forEach(card => {
+        const skills = card.querySelector("p").textContent.toLowerCase();
+        const alt = card.querySelector("img").alt.toLowerCase();
+        if(alt.includes(query) || skills.includes(query)){
+          card.style.display = "block";
+          matchFound = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+      if(!matchFound){
+        document.querySelector(".job-container").innerHTML = 
+        `<p class="no-results">No jobs found for "<strong>${query}</strong>"</p>`;
+      }
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    function redirectSearch(){
+      const newQuery = searchInput.value.trim();
+      if(newQuery){
+        window.location.href = `search.html?q=${encodeURIComponent(newQuery)}`;
+      }
+    }
+
+    searchBtn.addEventListener("click", redirectSearch);
+    searchInput.addEventListener("keyup", e => {
+      if(e.key === "Enter") redirectSearch();
+    });
+  </script>
+
+</body>
+</html>

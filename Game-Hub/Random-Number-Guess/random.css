@@ -1,0 +1,50 @@
+.d-flex{
+    display: flex;
+}
+.container{
+        background-color: rgb(29,28,28);
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+}
+.form1{
+        width: 280px;
+        height: 310px;
+        background:rgb(29, 28, 28);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        color:#0ff;
+        padding: 15px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 
+        0 0 5px #0ff,   /* cyan */
+        0 0 10px #0ff,
+        0 0 15px #0ff,
+        0 0 20px #0ff;
+}
+.inp{
+    padding: 5px;
+}
+#sbmit{
+    border-radius: 8px;
+    background-color: white;
+}
+#ans{
+    color: white;
+}
+.fail{
+    color: red;
+}
+.pass{
+    color: green;
+}
+.d-none{
+    display: none;
+}
+.d-block{
+    display: block;
+}

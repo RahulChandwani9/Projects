@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Word Scramble</title>
+  <link rel="stylesheet" href="word.css">
+  <script src="word.js" defer></script>
+</head>
+<body>
+
+  <div class="game-card">
+    <div class="top-info">
+      <span id="timer">⏱ <span class="time"></span></span>
+      <span>⭐ <span class="score"></span></span>
+    </div>
+
+    <h1>WORD SCRAMBLE</h1>
+
+    <div class="scrambled-word"> </div><span class="check"></span>
+
+    <input class="userinput" type="text" placeholder="Decode the word..." />
+
+    <div class="buttons">
+        <button class="btn start">START</button>
+        <button class="btn check" onclick="decode()">CHECK</button>
+        <button class="btn skip" onclick="start()">SKIP</button>
+      </div>
+      
+
+    <p class="hint">🔍 Hint: <span class="hint1"></span></p>
+  </div>
+
+
+  <div class="game-over-popup">
+    <div class="popup-content">
+      <h2>Game Over</h2>
+      <p>Your Score: <span class="final-score"></span></p>
+      <button class="btn restart" >Start Again</button>
+    </div>
+  </div>
+  
+
+</body>
+</html>

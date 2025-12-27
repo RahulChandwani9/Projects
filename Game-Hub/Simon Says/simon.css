@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background: #ffffff;
+    min-height: 100vh;
+  }
+  
+ 
+  .top-bar {
+    background: #f6a6b2;
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  .top-bar h1 {
+    color: white;
+    font-weight: 500;
+  }
+  
+  
+  .score-card {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .score-box p {
+    font-size: 0.9rem;
+    color: gray;
+  }
+  
+  .score-box h2 {
+    font-size: 2rem;
+    color: #f6a6b2;
+  }
+  
+
+  .board-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .game-board {
+    width: 320px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  
+  .pad {
+    opacity: 0.5;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.1s, opacity 0.1s, box-shadow 0.1s;
+  }
+  
+
+  .pad:active {
+    transform: scale(0.96);
+    opacity: 0.85;
+  }
+  
+
+  .blue   { background: #4d8cff; }
+  .green  { background: #6cf2b2; }
+  .red    { background: #ff4b4b; }
+  .yellow { background: #ffeb3b; }
+  
+ 
+  .center-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(246, 166, 178, 0.85);
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: 0 0 0 12px rgba(246, 166, 178, 0.3);
+    cursor: pointer;
+  }
+  
+ 
+  .pad.active {
+    box-shadow: 0 0 25px white;
+    opacity: 1;
+  }
+  
