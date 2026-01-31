@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSrhaKKgx90UTbconwSQiz8R9Xw7tmwdJ9SOWDxx6sBCzbLv-sZ3ePcMK-rG9n3" alt="Madhubani Art">
+            <h4>Handmade Madhubani Art</h4>
+            <p class="price">₹1,500</p>
+            <button class="buy-btn" onclick="openProduct(301, 'Handmade Madhubani Art', 1500, 'Traditional Mithila art from Bihar, painted with natural dyes on handmade paper.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSrhaKKgx90UTbconwSQiz8R9Xw7tmwdJ9SOWDxx6sBCzbLv-sZ3ePcMK-rG9n3')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQZhv-gr2SyiN81NTHyDguQWGeF1qaBfH7YT3K99Dn9Ww7QC4rxCq5pcMHhIlAV" alt="Pichwai Painting">
+            <h4>Pichwai Lotus Painting</h4>
+            <p class="price">₹3,200</p>
+            <button class="buy-btn" onclick="openProduct(302, 'Pichwai Lotus Painting', 3200, 'Intricate Pichwai art depicting Krishna and lotuses, perfect for home decor.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQZhv-gr2SyiN81NTHyDguQWGeF1qaBfH7YT3K99Dn9Ww7QC4rxCq5pcMHhIlAV')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQSeG7fRg2P1ccUjTlwM9flCg099PBC1Sw-M1ClOxD_ZALSHLufZa0O7JfbBhpD" alt="Pattachitra Art">
+            <h4>Pattachitra Scroll Art</h4>
+            <p class="price">₹2,800</p>
+            <button class="buy-btn" onclick="openProduct(303, 'Pattachitra Scroll Art', 2800, 'Ancient Odisha art form on cloth-based scroll, depicting mythological stories.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQSeG7fRg2P1ccUjTlwM9flCg099PBC1Sw-M1ClOxD_ZALSHLufZa0O7JfbBhpD')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5NxboV-M0QF8XGcaRkKED_YaIM-MQzsETVV1c-juZDdxmED6LWAevhX0RYxz2" alt="Warli Art">
+            <h4>Warli Tribal Art</h4>
+            <p class="price">₹1,200</p>
+            <button class="buy-btn" onclick="openProduct(304, 'Warli Tribal Art', 1200, 'Minimalist tribal art from Maharashtra, featuring geometric shapes and village life.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5NxboV-M0QF8XGcaRkKED_YaIM-MQzsETVV1c-juZDdxmED6LWAevhX0RYxz2')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbP4ZfWCiUYARgyz6DfVJoZTHv3R_sIXbt4DDgvnITFwRLTVm2xMXr4Gowh7rL" alt="Tanjore Painting">
+            <h4>Tanjore Gold Painting</h4>
+            <p class="price">₹7,500</p>
+            <button class="buy-btn" onclick="openProduct(305, 'Tanjore Gold Painting', 7500, 'Classical South Indian painting featuring 22k gold foil and semi-precious stones.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbP4ZfWCiUYARgyz6DfVJoZTHv3R_sIXbt4DDgvnITFwRLTVm2xMXr4Gowh7rL')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoZ4-rVPxsn9oEnQcP2DwI_kC2XXFeWAql-TeYHKOPJtABwkVbKlF63xjLBegb" alt="Gond Art">
+            <h4>Gond Art Canvas</h4>
+            <p class="price">₹1,850</p>
+            <button class="buy-btn" onclick="openProduct(306, 'Gond Art Canvas', 1850, 'Vibrant dots and lines painting from Madhya Pradesh, depicting flora and fauna.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoZ4-rVPxsn9oEnQcP2DwI_kC2XXFeWAql-TeYHKOPJtABwkVbKlF63xjLBegb')">Buy Now</button>
+        </div>
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+   

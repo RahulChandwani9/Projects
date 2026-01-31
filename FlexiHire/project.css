@@ -45,7 +45,7 @@ body{
     top: 30px;
     height: 600px;
     width: 80%;
-    background-image: url(../male_freelancer_detailed_background.jpg);
+    background-image: url(./male_freelancer_detailed_background.jpg);
     background-size: contain;
     border-radius: 20px;
     flex-direction: column;
@@ -168,7 +168,7 @@ body{
 }
 .reviews-container {
     position: relative;
-    background-image:url('/Technological Lines White Transparent, Technology Background Lines, Science And Technology, Background, Blue PNG Image For Free Download.jpg');
+    background-image:url('./Technological Lines White Transparent, Technology Background Lines, Science And Technology, Background, Blue PNG Image For Free Download.jpg');
     background-size: cover;
     background-blend-mode:overlay;
     background-color: rgba(0,0,0,0.2);

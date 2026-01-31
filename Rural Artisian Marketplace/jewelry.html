@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+              <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTesTBg6QQGJrE-kHZxcyqLFGAZxHs_D2BtJqbfTthJZlrsoEg0lMYIvOtYkjlr" alt="Kundan Necklace">
+            <h4>Kundan Bridal Necklace</h4>
+            <p class="price">₹12,500</p>
+            <button class="buy-btn" onclick="openProduct(701, 'Kundan Bridal Necklace', 12500, 'Exquisite Kundan necklace set with semi-precious stones and gold plating.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTesTBg6QQGJrE-kHZxcyqLFGAZxHs_D2BtJqbfTthJZlrsoEg0lMYIvOtYkjlr')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQoSV7sHKV7D1WXJ2Q-nuD8WAU5Q2D6cxp2FuMWTVDv_h6cIXvHnSxFt_v-_av_" alt="Temple Earrings">
+            <h4>Temple Art Jhumkas</h4>
+            <p class="price">₹3,200</p>
+            <button class="buy-btn" onclick="openProduct(702, 'Temple Art Jhumkas', 3200, 'Traditional South Indian temple jewelry featuring Goddess Lakshmi motifs.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQoSV7sHKV7D1WXJ2Q-nuD8WAU5Q2D6cxp2FuMWTVDv_h6cIXvHnSxFt_v-_av_')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQhYc1QMWzY2hvL41d7ZwjoZHBWWR4iEBffPP4oiUL5ZSAijHzy4UJwchHD9_S2" alt="Meenakari Bangles">
+            <h4>Meenakari Hand-Painted Bangles</h4>
+            <p class="price">₹1,850</p>
+            <button class="buy-btn" onclick="openProduct(703, 'Meenakari Hand-Painted Bangles', 1850, 'Vibrant Jaipur Meenakari work on high-quality brass bangles.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQhYc1QMWzY2hvL41d7ZwjoZHBWWR4iEBffPP4oiUL5ZSAijHzy4UJwchHD9_S2')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2YAqAF1v4hNiushxhTkJVyRtLH_8B2Nox9jYUOcmSGIRAsAldBiIY0yngZ7S8" alt="Silver Nose Pin">
+            <h4>Oxidized Silver Nose Pin</h4>
+            <p class="price">₹450</p>
+            <button class="buy-btn" onclick="openProduct(704, 'Oxidized Silver Nose Pin', 450, 'Handcrafted tribal style oxidized silver nose pin for an ethnic look.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2YAqAF1v4hNiushxhTkJVyRtLH_8B2Nox9jYUOcmSGIRAsAldBiIY0yngZ7S8')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRF4HQqpVO1O0kBHqhUC3UqCWx5AVp60i_XuOirSGtRNnY4SwZ8lf0HmFJOpUAu" alt="Pearl Choker">
+            <h4>Hyderabadi Pearl Choker</h4>
+            <p class="price">₹4,500</p>
+            <button class="buy-btn" onclick="openProduct(705, 'Hyderabadi Pearl Choker', 4500, 'Elegant multi-layered real freshwater pearl choker with a vintage clasp.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRF4HQqpVO1O0kBHqhUC3UqCWx5AVp60i_XuOirSGtRNnY4SwZ8lf0HmFJOpUAu')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTLBZsenfqDf-Fv1abkYRR3LfAgjYmEY8ne8kxt8W6zOCvRyTGYucql0pIFWNIM" alt="Terracotta Jewelry">
+            <h4>Handmade Terracotta Set</h4>
+            <p class="price">₹850</p>
+            <button class="buy-btn" onclick="openProduct(706, 'Handmade Terracotta Set', 850, 'Eco-friendly hand-baked and painted clay jewelry set from rural artisans.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTLBZsenfqDf-Fv1abkYRR3LfAgjYmEY8ne8kxt8W6zOCvRyTGYucql0pIFWNIM')">Buy Now</button>
+        </div>
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

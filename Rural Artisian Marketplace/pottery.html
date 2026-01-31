@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnAJ7Tucu2igXbhlc_pn7QeY_ar4Ht7oQe1rPFjLuq9mOSQ1p2osnt5bicaVo6" alt="Blue Pottery Vase">
+            <h4>Jaipur Blue Pottery Vase</h4>
+            <p class="price">₹1,250</p>
+            <button class="buy-btn" onclick="openProduct(401, 'Jaipur Blue Pottery Vase', 1250, 'Exquisite hand-painted quartz pottery from Jaipur with traditional floral motifs.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnAJ7Tucu2igXbhlc_pn7QeY_ar4Ht7oQe1rPFjLuq9mOSQ1p2osnt5bicaVo6')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQgvW-xIOWEKz7pzH5cDZvUFDOsxbP7l408Yo-Upkl9hXLX76XwghEZSbanjUmH" alt="Terracotta Horse">
+            <h4>Bankura Terracotta Horse</h4>
+            <p class="price">₹850</p>
+            <button class="buy-btn" onclick="openProduct(402, 'Bankura Terracotta Horse', 850, 'Traditional West Bengal terracotta craft, famous for its long ears and majestic stance.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQgvW-xIOWEKz7pzH5cDZvUFDOsxbP7l408Yo-Upkl9hXLX76XwghEZSbanjUmH')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ZJBCfYehaYpzXdkbNd8HxS8YIrwdMTU6TsZdEpcNN2ILeEz83fxvIbc6QAJT" alt="Ceramic Bowl Set">
+            <h4>Khurja Ceramic Bowl Set</h4>
+            <p class="price">₹1,100</p>
+            <button class="buy-btn" onclick="openProduct(403, 'Khurja Ceramic Bowl Set', 1100, 'Hand-glazed colorful ceramic bowls from the famous pottery hub of Khurja.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ZJBCfYehaYpzXdkbNd8HxS8YIrwdMTU6TsZdEpcNN2ILeEz83fxvIbc6QAJT')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQvzYR7jD0OJFTg7Nks564vQnxlzVooVOQXuEQGDZ2h4AjAnGcJVd2A9J6vviUL" alt="Black Stone Pottery">
+            <h4>Longpi Black Tea Pot</h4>
+            <p class="price">₹2,200</p>
+            <button class="buy-btn" onclick="openProduct(404, 'Longpi Black Tea Pot', 2200, 'Eco-friendly black stone pottery from Manipur, made without a potter’s wheel.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQvzYR7jD0OJFTg7Nks564vQnxlzVooVOQXuEQGDZ2h4AjAnGcJVd2A9J6vviUL')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybfB8DBEKF8cMzMrepMdLMgqdu60cn1Q7V1uNzNlTMG4gP1K-GfMOxEw1BfnS" alt="Black Pottery Vase">
+            <h4>Nizamabad Black Vase</h4>
+            <p class="price">₹1,800</p>
+            <button class="buy-btn" onclick="openProduct(405, 'Nizamabad Black Vase', 1800, 'Unique shiny black pottery with silver-like engravings from Uttar Pradesh.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybfB8DBEKF8cMzMrepMdLMgqdu60cn1Q7V1uNzNlTMG4gP1K-GfMOxEw1BfnS')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRg8ZrhLut4PGlKY4kdRcSQK2DmnGjuA6z2J-XleVIXduNXEYKr4zka1Vt8aUyW" alt="Garden Planter">
+            <h4>Artistic Garden Planter</h4>
+            <p class="price">₹999</p>
+            <button class="buy-btn" onclick="openProduct(406, 'Artistic Garden Planter', 999, 'Hand-painted large terracotta pot for indoor and outdoor plants.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRg8ZrhLut4PGlKY4kdRcSQK2DmnGjuA6z2J-XleVIXduNXEYKr4zka1Vt8aUyW')">Buy Now</button>
+        </div>
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+   

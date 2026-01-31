@@ -1,0 +1,123 @@
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                 <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTl8Sz6bRWekgZIjl_4sZGEV1NtfOnBYBFQtJmcN2Ahr2xVYnPBkn4y78zP9G9b" alt="Sheesham Box">
+            <h4>Carved Sheesham Box</h4>
+            <p class="price">₹1,200</p>
+            <button class="buy-btn" onclick="openProduct(501, 'Carved Sheesham Box', 1200, 'Intricately hand-carved Sheesham wood box with brass inlay work.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTl8Sz6bRWekgZIjl_4sZGEV1NtfOnBYBFQtJmcN2Ahr2xVYnPBkn4y78zP9G9b')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKV46yO0f17XDfEv8byDuQSEKTQ4r-AW6kZH9RJsl3dzq34L_kRFp4In0Mo86" alt="Channapatna Toys">
+            <h4>Channapatna Wooden Toys</h4>
+            <p class="price">₹650</p>
+            <button class="buy-btn" onclick="openProduct(502, 'Channapatna Wooden Toys', 650, 'Eco-friendly traditional toys from Karnataka, colored with natural dyes.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKV46yO0f17XDfEv8byDuQSEKTQ4r-AW6kZH9RJsl3dzq34L_kRFp4In0Mo86')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTTf8wVArfQiKASQ3LqkCV_OVOFq6oqloa45UKn9PMHXbWx0O56B4C2DlSBgKIX" alt="Teak Wood Tray">
+            <h4>Teak Wood Serving Tray</h4>
+            <p class="price">₹950</p>
+            <button class="buy-btn" onclick="openProduct(503, 'Teak Wood Serving Tray', 950, 'Solid teak wood tray with a natural oil finish, perfect for home decor.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTTf8wVArfQiKASQ3LqkCV_OVOFq6oqloa45UKn9PMHXbWx0O56B4C2DlSBgKIX')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQcZRENmWqrf1I86zDaIfCdHIs3BGmCqxGHrtedQk_fogx45Rco3sJq-RWbKnw2" alt="Wooden Wall Panel">
+            <h4>Jali Work Wall Panel</h4>
+            <p class="price">₹2,800</p>
+            <button class="buy-btn" onclick="openProduct(504, 'Jali Work Wall Panel', 2800, 'Hand-carved wooden Jali art from Saharanpur, ideal for ethnic interiors.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQcZRENmWqrf1I86zDaIfCdHIs3BGmCqxGHrtedQk_fogx45Rco3sJq-RWbKnw2')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTes9d2pZP3crc1e1hdO1kJcvX4nD13lOksVikcRjbegb1bYxriFHjysH0prUGh" alt="Bamboo Mugs">
+            <h4>Eco Bamboo Mug Set</h4>
+            <p class="price">₹750</p>
+            <button class="buy-btn" onclick="openProduct(505, 'Eco Bamboo Mug Set', 750, 'Sustainable and lightweight mugs handcrafted from treated bamboo poles.', '')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSs7bKzQg6FbnN4uosjLsPsbz3_ywz82pQYXxqgxwMHQs0IjhWqDhXtL69VIXRM" alt="Walnut Key Holder">
+            <h4>Walnut Wood Key Holder</h4>
+            <p class="price">₹550</p>
+            <button class="buy-btn" onclick="openProduct(506, 'Walnut Wood Key Holder', 550, 'Durable walnut wood key organizer with traditional floral carvings.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSs7bKzQg6FbnN4uosjLsPsbz3_ywz82pQYXxqgxwMHQs0IjhWqDhXtL69VIXRM')">Buy Now</button>
+        </div>
+       
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+   
+   

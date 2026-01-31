@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                
+<div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRFt5o1DA5woHJy-70A8wXQ-sQlMPwlpVs2NLP978m0W0BHa6wmPdJOUEzsb30u" alt="Nehru Jacket">
+            <h4>Handloom Nehru Jacket</h4>
+            <p class="price">₹2,499</p>
+            <button class="buy-btn" onclick="openProduct(901, 'Handloom Nehru Jacket', 2499, 'Premium silk-blend Nehru jacket, perfect for festive and formal occasions.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRFt5o1DA5woHJy-70A8wXQ-sQlMPwlpVs2NLP978m0W0BHa6wmPdJOUEzsb30u')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvJ2Dfo2zoL39lfPa19JdrZeyOGSmqD2Rxl1jNkJFZVMM5HirEjL2L9YJN3hh" alt="Khadi Kurta">
+            <h4>Pure Khadi Kurta</h4>
+            <p class="price">₹1,150</p>
+            <button class="buy-btn" onclick="openProduct(902, 'Pure Khadi Kurta', 1150, 'Authentic hand-spun cotton kurta, breathable and eco-friendly.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvJ2Dfo2zoL39lfPa19JdrZeyOGSmqD2Rxl1jNkJFZVMM5HirEjL2L9YJN3hh')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6URRm6UKPjlYfd2VbZuYtKlpuJLioLDq6hj1GogFL-_4MfeaI7ObuW3d3BCdQ" alt="Chikankari Kurta">
+            <h4>Lucknawi Chikankari Kurta</h4>
+            <p class="price">₹1,850</p>
+            <button class="buy-btn" onclick="openProduct(903, 'Lucknawi Chikankari Kurta', 1850, 'Hand-embroidered Lucknawi Chikan work on soft cotton fabric.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6URRm6UKPjlYfd2VbZuYtKlpuJLioLDq6hj1GogFL-_4MfeaI7ObuW3d3BCdQ')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFcdaD_yzbB1qa0tDrGpJ-JWrQoPY2LKUmBUJ2Iqx1QQiDK309JgNgcoitsf8X" alt="Ikat Shirt">
+            <h4>Ikat Handloom Shirt</h4>
+            <p class="price">₹1,400</p>
+            <button class="buy-btn" onclick="openProduct(904, 'Ikat Handloom Shirt', 1400, 'Modern slim-fit shirt made from traditional hand-woven Ikat fabric.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFcdaD_yzbB1qa0tDrGpJ-JWrQoPY2LKUmBUJ2Iqx1QQiDK309JgNgcoitsf8X')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ5MkbP4sWbQpdSCb5VLTdrx2lIfoJvyugSRFWQEMnsTaWOhw_fCR6s5VBar0uy" alt="Woolen Muffler">
+            <h4>Hand-woven Woolen Muffler</h4>
+            <p class="price">₹750</p>
+            <button class="buy-btn" onclick="openProduct(905, 'Hand-woven Woolen Muffler', 750, 'Warm and stylish hand-knitted woolen muffler from Himachal.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ5MkbP4sWbQpdSCb5VLTdrx2lIfoJvyugSRFWQEMnsTaWOhw_fCR6s5VBar0uy')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrsA5ZpuTLnyjLwzLyQ8wMoTqgmLtxxmmXiPlmZLpwtwFbd_xfnUaNVAtzo2_w" alt="Dhoti Kurta Set">
+            <h4>Traditional Dhoti Kurta Set</h4>
+            <p class="price">₹3,200</p>
+            <button class="buy-btn" onclick="openProduct(906, 'Traditional Dhoti Kurta Set', 3200, 'Pure cotton dhoti kurta set with ethnic borders for traditional events.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrsA5ZpuTLnyjLwzLyQ8wMoTqgmLtxxmmXiPlmZLpwtwFbd_xfnUaNVAtzo2_w')">Buy Now</button>
+        </div>
+        
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

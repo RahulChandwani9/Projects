@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Product Details - RuralConnect</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f9f9f9; }
+        
+        /* Sidebar Styling */
+        .cart-sidebar {
+            position: fixed;
+            right: -450px; 
+            top: 0;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            transition: 0.4s ease;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .cart-sidebar.open { right: 0; }
+
+        .detail-wrapper { display: flex; max-width: 1200px; height:500px; margin: 40px auto; gap: 40px; background: #E6D5CE; padding: 30px; border-radius: 10px; align-items: center; justify-content:center; }
+        .image-section { flex: 1; text-align: center; }
+        .image-section img { width: 100%; border-radius: 8px; border: 1px solid #eee; }
+        .info-section { flex: 1.5; }
+        .price-text { font-size: 32px; color: #3E2723; font-weight: bold; margin: 15px 0; }
+        
+        /* Buttons */
+        .amz-btn { width: 100%; max-width: 300px; padding: 15px; border-radius: 25px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 12px; font-size: 16px; display: block; color: white; }
+        .yellow-btn { background: #3E2723; }
+        .orange-btn { background: #3E2723; }
+
+        /* Quantity Buttons Look */
+        .qty-control { display: flex; align-items: center; gap: 10px; background: #f0f2f2; padding: 5px 12px; border-radius: 8px; border: 1px solid #d5d9d9; width: fit-content; }
+        .qty-btn { background-color: #3E2723; border: 1px solid #3E2723; border-radius: 4px; width: 30px; height: 30px; font-weight: bold; cursor: pointer; color: white; }
+    </style>
+</head>
+<body>
+
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+          <div class="rumarket-brand">
+            <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+            <span class="rumarket-name">Rural<span class="rumarket-name-accent">Connect</span></span>
+          </div>
+      
+          <div class="rumarket-search">
+            <input type="text" placeholder="Search products..." />
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+
+          <div class="rumarket-actions">
+            <div class="logos">
+                <div class="logoandname">
+                    <a href="#" class="rumarket-icon" title="Login"><i class="fa-solid fa-user"></i></a>
+                    <div class="detail">Log in</div>
+                </div>
+                <div class="logoandname" onclick="toggleCart()" style="cursor:pointer;">
+                    <a href="#" class="rumarket-icon" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div class="detail">Cart (<span id="cartCount">0</span>)</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+    <div class="detail-wrapper">
+        <div class="image-section"><img id="mainImg" src="" alt="Product"></div>
+        <div class="info-section">
+            <h1 id="pName"></h1>
+            <p style="color:#565959;">Brand: RuralConnect Artisans</p>
+            <hr>
+            <div class="price-text">₹<span id="pPrice"></span></div>
+            <p id="pDesc" style="line-height:1.6; color:#333;"></p>
+            
+            <div style="margin-top:30px;">
+                <button class="amz-btn yellow-btn" onclick="addToCart(pid, pname, pprice); toggleCart();">Add to Cart</button>
+                <button class="amz-btn orange-btn">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cartSidebar" class="cart-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
+            <h3 style="margin:0;">Your Shopping Cart</h3>
+            <span onclick="toggleCart()" style="font-size:30px; cursor:pointer;">&times;</span>
+        </div>
+        <hr>
+        <div id="cartList" style="padding:10px; overflow-y:auto; height:70vh;"></div>
+        <div style="padding:20px; border-top:1px solid #ddd; background:white;">
+            <h4>Total: ₹<span id="totalPrice">0</span></h4>
+            <button class="orange-btn" style="width:100%; border-radius:5px; padding:12px; color:white; border:none; cursor:pointer; margin-top: 10px;">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const pid = params.get('id');
+        const pname = params.get('name');
+        const pprice = params.get('price');
+        const pdesc = params.get('desc');
+        const pimg = params.get('img');
+
+        document.getElementById('pName').innerText = pname;
+        document.getElementById('pPrice').innerText = pprice;
+        document.getElementById('pDesc').innerText = pdesc;
+        document.getElementById('mainImg').src = pimg;
+    </script>
+</body>
+</html>

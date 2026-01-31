@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+               
+<div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTufUtpk2ogd-RX03H4At0z6_H5bXV-r6BHfz496O64hk6EZOepIqJc2EwrdwWP" alt="Leather Messenger Bag">
+            <h4>Leather Messenger Bag</h4>
+            <p class="price">₹3,499</p>
+            <button class="buy-btn" onclick="openProduct(801, 'Leather Messenger Bag', 3499, 'Handcrafted goat leather laptop bag with vintage finish and brass buckles.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTufUtpk2ogd-RX03H4At0z6_H5bXV-r6BHfz496O64hk6EZOepIqJc2EwrdwWP')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQsh2SQXVGFpgXPvzksYuZ-3yuYMKDHh1NiCxIB_ED4nVo2EhiMi0Gze3SpQYKA" alt="Leather Wallet">
+            <h4>Classic Bifold Wallet</h4>
+            <p class="price">₹850</p>
+            <button class="buy-btn" onclick="openProduct(802, 'Classic Bifold Wallet', 850, 'Pure grain leather wallet with RFID protection and 6 card slots.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQsh2SQXVGFpgXPvzksYuZ-3yuYMKDHh1NiCxIB_ED4nVo2EhiMi0Gze3SpQYKA')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRU7hrodnA1Rsnbkn1O7eK7j-6g39YkqZCfDSSo0B2rGspgTpPtwKhAoNEY-NE8" alt="Leather Belt">
+            <h4>Premium Leather Belt</h4>
+            <p class="price">₹1,200</p>
+            <button class="buy-btn" onclick="openProduct(803, 'Premium Leather Belt', 1200, 'Formal black leather belt with a brushed metal buckle, 100% genuine hide.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRU7hrodnA1Rsnbkn1O7eK7j-6g39YkqZCfDSSo0B2rGspgTpPtwKhAoNEY-NE8')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR34blecNMNyFqldZBSAdKCC8Z5ogh17dlbrdlXNglC85jTiHl8DsPKqkuLaTNg" alt="Leather Duffle Bag">
+            <h4>Leather Travel Duffle</h4>
+            <p class="price">₹5,999</p>
+            <button class="buy-btn" onclick="openProduct(804, 'Leather Travel Duffle', 5999, 'Spacious weekender bag made from thick buffalo leather for rugged durability.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR34blecNMNyFqldZBSAdKCC8Z5ogh17dlbrdlXNglC85jTiHl8DsPKqkuLaTNg')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTrmggYpFdsKtmX7XiwY81J4zW20m4Q1T05zDZWPyLYyCEFJcyJ3SfWHJ8UG7SN" alt="Leather Tote Bag">
+            <h4>Leather Tote Bag</h4>
+            <p class="price">₹2,800</p>
+            <button class="buy-btn" onclick="openProduct(805, 'Leather Tote Bag', 2800, 'Hand-stitched leather tote with a minimalist design and large capacity.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTrmggYpFdsKtmX7XiwY81J4zW20m4Q1T05zDZWPyLYyCEFJcyJ3SfWHJ8UG7SN')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZtFqJh2EvsFot8IomXBuJ2dsAsu6JwIsrNxKVJ_0psejibGuBBt1VfhO29Gc1" alt="Leather Journal">
+            <h4>Handbound Leather Journal</h4>
+            <p class="price">₹650</p>
+            <button class="buy-btn" onclick="openProduct(806, 'Handbound Leather Journal', 650, 'Antique style leather diary with handmade recycled paper.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZtFqJh2EvsFot8IomXBuJ2dsAsu6JwIsrNxKVJ_0psejibGuBBt1VfhO29Gc1')">Buy Now</button>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

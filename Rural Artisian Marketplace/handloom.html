@@ -1,0 +1,114 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRfl1Fg5RVcKJjg6PXAYkTPZP6WdOH-AfhQLz8udvLl1xpMacmNuhWXcGMae_ys" alt="Pashmina Shawl">
+            <h4>Pure Pashmina Shawl</h4>
+            <p class="price">₹8,000</p>
+            <button class="buy-btn" onclick="openProduct(602, 'Pure Pashmina Shawl', 8000, 'Authentic hand-spun pashmina wool shawl from Kashmir.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRfl1Fg5RVcKJjg6PXAYkTPZP6WdOH-AfhQLz8udvLl1xpMacmNuhWXcGMae_ys')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRzCSftF2M67VG8rdKQd_I1pp7OW0U24vwVH9e3ziD6b_vRWIo-XxOjdGMCPFqf" alt="Khadi Shirt">
+            <h4>Handloom Khadi Shirt</h4>
+            <p class="price">₹1,200</p>
+            <button class="buy-btn" onclick="openProduct(603, 'Handloom Khadi Shirt', 1200, 'Breathable hand-spun khadi cotton shirt for everyday comfort.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRzCSftF2M67VG8rdKQd_I1pp7OW0U24vwVH9e3ziD6b_vRWIo-XxOjdGMCPFqf')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSRq1z42zKYIPWpfhNU7arMppd3IVvvPWUGlCfMsKJRFzEffO69zv_MfPeMGF62" alt="Sambalpuri Saree">
+            <h4>Sambalpuri Ikat Saree</h4>
+            <p class="price">₹4,200</p>
+            <button class="buy-btn" onclick="openProduct(604, 'Sambalpuri Ikat Saree', 4200, 'Traditional hand-woven ikat saree from Odisha with ethnic patterns.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSRq1z42zKYIPWpfhNU7arMppd3IVvvPWUGlCfMsKJRFzEffO69zv_MfPeMGF62')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSKMpVRd6FOFGtaueXumNcPAMq9qF4_f0RUmiYzTBuks6uyNfqqmRT7isI_gEf_" alt="Chanderi Suit">
+            <h4>Chanderi Handloom Suit</h4>
+            <p class="price">₹3,500</p>
+            <button class="buy-btn" onclick="openProduct(605, 'Chanderi Handloom Suit', 3500, 'Elegant Chanderi silk-cotton suit set with hand-woven borders.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSKMpVRd6FOFGtaueXumNcPAMq9qF4_f0RUmiYzTBuks6uyNfqqmRT7isI_gEf_')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSAK-2IruWo1F914vXPf0HW6eOPu0-w0VupghNfRvw4UTdLaXcpV9755XZfsb9x" alt="Phulkari Dupatta">
+            <h4>Phulkari Hand-Embroidered Dupatta</h4>
+            <p class="price">₹1,500</p>
+            <button class="buy-btn" onclick="openProduct(606, 'Phulkari Hand-Embroidered Dupatta', 1500, 'Traditional vibrant floral embroidery from Punjab on handloom fabric.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSAK-2IruWo1F914vXPf0HW6eOPu0-w0VupghNfRvw4UTdLaXcpV9755XZfsb9x')">Buy Now</button>
+        </div>
+       
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

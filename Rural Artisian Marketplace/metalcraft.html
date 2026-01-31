@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="rumarket-header">
+        <div class="rumarket-container">
+            <!-- Logo + Brand Name -->
+            <div class="rumarket-brand">
+                <img src="./images/rounded-handmade-vintage-label-by-Vexels.png" alt="Marketplace Logo" class="rumarket-logo">
+                <span class="rumarket-name">
+                    Rural<span class="rumarket-name-accent">Connect</span>
+                </span>
+            </div>
+        
+            <!-- Search Bar -->
+            <div class="rumarket-search">
+                <input type="text" placeholder="Search products..." />
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        
+            <!-- Login & Cart -->
+            <div class="rumarket-actions">
+                <div class="logos">
+                    <div class="logoandname">
+                        <a href="login.html" class="rumarket-icon" title="Login">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <div class="detail">Log in</div>
+                    </div>
+                    <div class="logoandname">
+                        <a href="#" class="rumarket-icon" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div class="detail">Add To Cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout with Sidebar -->
+    <div class="main-layout">
+        <!-- Left Sidebar - Categories -->
+        <aside class="category-container">
+            <h3>Categories</h3>
+            <button class="category-btn" onclick="location.href='index.html'">All Products</button>
+            <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
+            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
+            <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
+            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
+            <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
+            <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
+            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
+        </aside>
+
+        <!-- Content Area - Products -->
+        <div class="content-area">
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be added here -->
+                  <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRy1gApaXRIHxQNfsg36CsyB_Rffrsx8ePgcKXijBxRlaWx4ND2LitAwAyc28yu" alt="Brass Ganesha">
+            <h4>Brass Ganesha Idol</h4>
+            <p class="price">₹2,400</p>
+            <button class="buy-btn" onclick="openProduct(201, 'Brass Ganesha Idol', 2400, 'Handcrafted solid brass Ganesha idol with intricate antique finish work.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRy1gApaXRIHxQNfsg36CsyB_Rffrsx8ePgcKXijBxRlaWx4ND2LitAwAyc28yu')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTT6Ia2Gg101x-UIBIrzVmWukC8PBYmX19oQF1lIxtZFlKLV1kga4miJY5Xdu_4" alt="Copper Bottle">
+            <h4>Hammered Copper Bottle</h4>
+            <p class="price">₹950</p>
+            <button class="buy-btn" onclick="openProduct(202, 'Hammered Copper Bottle', 950, 'Pure copper water bottle with hammered texture for health benefits.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTT6Ia2Gg101x-UIBIrzVmWukC8PBYmX19oQF1lIxtZFlKLV1kga4miJY5Xdu_4')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8E2EQsEQEVZ26HvF4_VxSN8up3Qr5OvhXybvAK-sJ30zQjJjRh0zSey6tCSKQ" alt="Dhokra Art">
+            <h4>Dhokra Metal Art</h4>
+            <p class="price">₹1,800</p>
+            <button class="buy-btn" onclick="openProduct(203, 'Dhokra Metal Art', 1800, 'Traditional tribal non-ferrous metal casting using lost-wax technique.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8E2EQsEQEVZ26HvF4_VxSN8up3Qr5OvhXybvAK-sJ30zQjJjRh0zSey6tCSKQ')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRw3y0KMwj7mbUs-fF1-hdrh2uW8v56_jsOn31_eLowHdGXAlTvtB2ZQMSpj20E" alt="Brass Diya">
+            <h4>Royal Brass Diya Set</h4>
+            <p class="price">₹1,200</p>
+            <button class="buy-btn" onclick="openProduct(204, 'Royal Brass Diya Set', 1200, 'Set of 2 peacock-style brass diyas, perfect for puja and home decor.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRw3y0KMwj7mbUs-fF1-hdrh2uW8v56_jsOn31_eLowHdGXAlTvtB2ZQMSpj20E')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRolWlWY9SMwgrukPBiBQJkqhjJTQ-phKzr6y-a0sTYdc5N28nxCB9K16ZkWfDi" alt="Kansa Plate">
+            <h4>Bronze (Kansa) Plate</h4>
+            <p class="price">₹3,500</p>
+            <button class="buy-btn" onclick="openProduct(205, 'Bronze (Kansa) Plate', 3500, 'Authentic Kansa dinner plate, known for its ayurvedic healing properties.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRolWlWY9SMwgrukPBiBQJkqhjJTQ-phKzr6y-a0sTYdc5N28nxCB9K16ZkWfDi')">Buy Now</button>
+        </div>
+
+        <div class="p-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7sEYsMmSE0efnntiaMfsZ0iFylvENxvcUCUP-mTIqHwG0o-zc2Vd3w2KgsSwx" alt="Iron Lamp">
+            <h4>Wrought Iron Lamp</h4>
+            <p class="price">₹1,450</p>
+            <button class="buy-btn" onclick="openProduct(206, 'Wrought Iron Lamp', 1450, 'Rustic wrought iron lamp with traditional cut-work design.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7sEYsMmSE0efnntiaMfsZ0iFylvENxvcUCUP-mTIqHwG0o-zc2Vd3w2KgsSwx')">Buy Now</button>
+        </div>
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+   
+   

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .cart-container { padding: 20px; max-width: 800px; margin: auto; background: white; border-radius: 8px; margin-top: 20px; }
+        .cart-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; align-items: center; }
+        .checkout-btn { background: green; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; cursor: pointer; font-size: 18px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <header style="background: #3E2723; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; height: 60px;">
+    <div class="logo"> RuralConnect</div>
+    
+    <div style="flex-grow: 1; display: flex; justify-content: center;">
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." 
+               style="width: 60%; padding: 8px 15px; border-radius: 20px; border: none; outline: none;">
+    </div>
+
+    <div onclick="toggleCart()" style="cursor:pointer; font-size: 20px;">
+        <i class="fa fa-shopping-bag"></i> <span id="cartCount">0</span>
+    </div>
+</header>
+
+    <div class="cart-container">
+        <h2>Your Selected Items</h2>
+        <div id="cartDisplay">
+            </div>
+        <div style="margin-top:20px; text-align:right;">
+            <h3>Total Amount: ₹<span id="finalPrice">0</span></h3>
+        </div>
+        <button class="checkout-btn" onclick="alert('Order Successful!')">Place Order</button>
+    </div>
+
+    <script>
+        // Cart load karne ka logic
+        let cart = JSON.parse(localStorage.getItem('graminCart')) || [];
+        const display = document.getElementById('cartDisplay');
+        const priceTag = document.getElementById('finalPrice');
+        let total = 0;
+
+        if(cart.length === 0) {
+            display.innerHTML = "<h3>Aapka cart khali hai!</h3>";
+        } else {
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                display.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>Price: ₹${item.price} x ${item.quantity}</p>
+                        </div>
+                        <p>₹${item.price * item.quantity}</p>
+                    </div>
+                `;
+            });
+            priceTag.innerText = total;
+        }
+    </script>
+</body>
+</html>
