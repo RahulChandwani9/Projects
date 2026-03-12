@@ -6,7 +6,6 @@
   <title>Rural–Urban Marketplace</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
   <!-- Font Awesome CDN for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="rural.css">
@@ -27,9 +26,16 @@
       
           <!-- Search Bar -->
           <div class="rumarket-search">
-            <input type="text" placeholder="Search products..." />
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            
+              <input type="text" id="searchInput" placeholder="Search products..." />
+              <button type="button" id="searchBtn">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              
           </div>
+          <div id="searchResults"></div> 
+          <!-- Suggestions will appear here -->
+
 
           <!-- language -->
            
@@ -37,16 +43,14 @@
           <!-- Login & Cart -->
           <div class="rumarket-actions">
 <!--             
- <div data-key="Translator Dropdown" class="ft" id="ftmwzfgx6">
- </div>
- <script src="https://wdg.fouita.com/widgets/0x3b2d5e.js"></script>
+ 
   -->
            <div class="logos">
             <div class="logoandname">
-            <a href="login.html" class="rumarket-icon" title="Login">
+            <a href="buyer-signup.html" class="rumarket-icon" title="Login">
               <i class="fa-solid fa-user"></i>
             </a>
-            <div class="detail"><a href="login.html" class="atag" >Log in</a></div>
+            <div class="detail"><a href="buyer-signup.html" class="atag" >Sign up</a></div>
             </div>
             <div class="logoandname">
             <a href="#" class="rumarket-icon" title="Cart">
@@ -80,7 +84,7 @@
         small producers to sell directly at fair prices.
       </p>
       <div class="header-buttons">
-        <a href="login.html" class="btn-primary">Become a Seller</a>
+        <a href="seller-signup.html" class="btn-primary">Become a Seller</a>
         <a href="index.html" class="btn-outline">Explore Products</a>
       </div>
     </div>
@@ -205,7 +209,7 @@
   </section>
   
   <!-- About us -->
-  <section class="about-artisan">
+  <section id="about-artisan">
   <div class="about-container">
 
     <div class="about-left">
@@ -309,7 +313,7 @@
 
       <div>
         <h4>User</h4>
-        <a href="#">Login / Register</a>
+        <a href="buyer-signup.html">Login / Register</a>
         <a href="#">My Cart</a>
         <a href="#">Orders</a>
       </div>

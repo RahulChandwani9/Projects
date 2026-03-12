@@ -1,4 +1,3 @@
-
 const slides = document.querySelectorAll('.review-slide');
 const prevBtn = document.getElementById('prev-review');
 const nextBtn = document.getElementById('next-review');
@@ -20,4 +19,3 @@ prevBtn.addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + slides.length) % slides.length;
   showSlide(currentIndex);
 });
-

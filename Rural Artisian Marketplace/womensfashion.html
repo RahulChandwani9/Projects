@@ -7,6 +7,7 @@
     <title>RuralConnect - Premium Marketplace</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -35,11 +36,9 @@
                         </a>
                         <div class="detail">Log in</div>
                     </div>
-                    <div class="logoandname">
-                        <a href="#" class="rumarket-icon" title="Cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                        <div class="detail">Add To Cart</div>
+                    <div class="logoandname" onclick="toggleCart()" style="cursor:pointer;">
+                    <a href="#" class="rumarket-icon" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div class="detail">Cart (<span id="cartCount">0</span>)</div>
                     </div>
                 </div>
             </div>
@@ -57,11 +56,11 @@
             <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
             <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
             <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
-            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='bamboo.html'">Bamboo</button>
             <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
             <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
             <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
-            <button class="category-btn" onclick="location.href='womensfashion.html'">Women's Fashion</button>
+            <button class="category-btn active" onclick="location.href='womensfashion.html'">Women's Fashion</button>
             <button class="category-btn" onclick="location.href='mensfashion.html'">Men's Fashion</button>
         </aside>
 
@@ -110,53 +109,24 @@
             <p class="price">₹2,100</p>
             <button class="buy-btn" onclick="openProduct(1006, 'Handloom Ikat Suit Set', 2100, 'Authentic Pochampally Ikat hand-woven cotton unstitched suit material.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRejGvz6sbCUWOjg7BauYJ9TVeq1woZyULlzfkckTNqVBOz_u8ApS8qt-QAp7sp')">Buy Now</button>
         </div>
-<div class="p-card">
-            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRy1gApaXRIHxQNfsg36CsyB_Rffrsx8ePgcKXijBxRlaWx4ND2LitAwAyc28yu" alt="Brass Ganesha">
-            <h4>Brass Ganesha Idol</h4>
-            <p class="price">₹2,400</p>
-            <button class="buy-btn" onclick="openProduct(201, 'Brass Ganesha Idol', 2400, 'Handcrafted solid brass Ganesha idol with intricate antique finish work.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRy1gApaXRIHxQNfsg36CsyB_Rffrsx8ePgcKXijBxRlaWx4ND2LitAwAyc28yu')">Buy Now</button>
-        </div>
-
-        <div class="p-card">
-            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTT6Ia2Gg101x-UIBIrzVmWukC8PBYmX19oQF1lIxtZFlKLV1kga4miJY5Xdu_4" alt="Copper Bottle">
-            <h4>Hammered Copper Bottle</h4>
-            <p class="price">₹950</p>
-            <button class="buy-btn" onclick="openProduct(202, 'Hammered Copper Bottle', 950, 'Pure copper water bottle with hammered texture for health benefits.', 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTT6Ia2Gg101x-UIBIrzVmWukC8PBYmX19oQF1lIxtZFlKLV1kga4miJY5Xdu_4')">Buy Now</button>
-        </div>
-
-        <div class="p-card">
-            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8E2EQsEQEVZ26HvF4_VxSN8up3Qr5OvhXybvAK-sJ30zQjJjRh0zSey6tCSKQ" alt="Dhokra Art">
-            <h4>Dhokra Metal Art</h4>
-            <p class="price">₹1,800</p>
-            <button class="buy-btn" onclick="openProduct(203, 'Dhokra Metal Art', 1800, 'Traditional tribal non-ferrous metal casting using lost-wax technique.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8E2EQsEQEVZ26HvF4_VxSN8up3Qr5OvhXybvAK-sJ30zQjJjRh0zSey6tCSKQ')">Buy Now</button>
-        </div>
-
-        <div class="p-card">
-            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRw3y0KMwj7mbUs-fF1-hdrh2uW8v56_jsOn31_eLowHdGXAlTvtB2ZQMSpj20E" alt="Brass Diya">
-            <h4>Royal Brass Diya Set</h4>
-            <p class="price">₹1,200</p>
-            <button class="buy-btn" onclick="openProduct(204, 'Royal Brass Diya Set', 1200, 'Set of 2 peacock-style brass diyas, perfect for puja and home decor.', 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRw3y0KMwj7mbUs-fF1-hdrh2uW8v56_jsOn31_eLowHdGXAlTvtB2ZQMSpj20E')">Buy Now</button>
-        </div>
-
-        <div class="p-card">
-            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRolWlWY9SMwgrukPBiBQJkqhjJTQ-phKzr6y-a0sTYdc5N28nxCB9K16ZkWfDi" alt="Kansa Plate">
-            <h4>Bronze (Kansa) Plate</h4>
-            <p class="price">₹3,500</p>
-            <button class="buy-btn" onclick="openProduct(205, 'Bronze (Kansa) Plate', 3500, 'Authentic Kansa dinner plate, known for its ayurvedic healing properties.', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRolWlWY9SMwgrukPBiBQJkqhjJTQ-phKzr6y-a0sTYdc5N28nxCB9K16ZkWfDi')">Buy Now</button>
-        </div>
-
-        <div class="p-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7sEYsMmSE0efnntiaMfsZ0iFylvENxvcUCUP-mTIqHwG0o-zc2Vd3w2KgsSwx" alt="Iron Lamp">
-            <h4>Wrought Iron Lamp</h4>
-            <p class="price">₹1,450</p>
-            <button class="buy-btn" onclick="openProduct(206, 'Wrought Iron Lamp', 1450, 'Rustic wrought iron lamp with traditional cut-work design.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7sEYsMmSE0efnntiaMfsZ0iFylvENxvcUCUP-mTIqHwG0o-zc2Vd3w2KgsSwx')">Buy Now</button>
-        </div>
                 <!-- Add more product cards as needed -->
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+     <div id="cartSidebar" class="cart-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
+            <h3 style="margin:0;">Your Shopping Cart</h3>
+            <span onclick="toggleCart()" style="font-size:30px; cursor:pointer;">&times;</span>
+        </div>
+        <hr>
+        <div id="cartList" style="padding:10px; overflow-y:auto; height:70vh;"></div>
+        <div style="padding:20px; border-top:1px solid #ddd; background:white;">
+            <h4>Total: ₹<span id="totalPrice">0</span></h4>
+            <button onclick="window.location.href='paymentPage.html'" class="orange-btn" style="width:100%; border-radius:5px; padding:12px; color:white; border:none; cursor:pointer; margin-top: 10px; background-color: #4D3328;">Proceed to Checkout</button>
+        </div>
+    </div>
+    
 </body>
 </html>
    

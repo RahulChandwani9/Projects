@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralConnect - Secure Payment</title>
+    <link rel="stylesheet" href="paymentPage.css">
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-wrapper">
+            <!-- Left Section - Payment Form -->
+            <div class="payment-form-section">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Shipping Address</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Payment Method</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Review Order</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Shipping Address -->
+                <div class="form-step active" id="step-1">
+                    <h2>Shipping Address</h2>
+                    <form id="address-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" required onchange="updateCityState()">
+                                <option value="">Select a country</option>
+                                <option value="india">India</option>
+                                <option value="usa">USA</option>
+                                <option value="uk">UK</option>
+                                <option value="canada">Canada</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <select id="city" name="city" required disabled>
+                                    <option value="">Select city</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <select id="state" name="state" required disabled>
+                                    <option value="">Select state</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip">Postal Code</label>
+                                <input type="text" id="zip" name="zip" placeholder="Enter postal code" inputmode="numeric" pattern="[0-9]*" required>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="nextStep(1)">Continue to Payment</button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment Method -->
+                <div class="form-step" id="step-2">
+                    <h2>Payment Method</h2>
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" id="card" name="paymentMethod" value="card" checked>
+                            <label for="card">
+                                <span class="radio-label">Credit/Debit Card</span>
+                                <span class="payment-icon">💳</span>
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="upi" name="paymentMethod" value="upi">
+                            <label for="upi">
+                                <span class="radio-label">UPI Payment</span>
+                                <span class="payment-icon">📱</span>
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="netbanking" name="paymentMethod" value="netbanking">
+                            <label for="netbanking">
+                                <span class="radio-label">Net Banking</span>
+                                <span class="payment-icon">🏦</span>
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="wallet" name="paymentMethod" value="wallet">
+                            <label for="wallet">
+                                <span class="radio-label">Digital Wallet</span>
+                                <span class="payment-icon">👛</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Card Payment Form -->
+                    <div id="card-form" class="payment-form">
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="Enter cardholder name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardExpiry">Expiry Date</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCvv">CVV</label>
+                                <input type="text" id="cardCvv" placeholder="123" maxlength="3" inputmode="numeric" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="saveCard" name="saveCard">
+                            <label for="saveCard">Save this card for future purchases</label>
+                        </div>
+                    </div>
+
+                    <!-- UPI Payment Form -->
+                    <div id="upi-form" class="payment-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="upiId">UPI ID</label>
+                            <input type="text" id="upiId" placeholder="yourname@bankname" required>
+                        </div>
+                        <p style="color: var(--muted-foreground); font-size: 14px; margin-top: 10px;">You'll be redirected to your UPI app to complete the payment</p>
+                    </div>
+
+                    <!-- Net Banking Form -->
+                    <div id="netbanking-form" class="payment-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="bankName">Select Your Bank</label>
+                            <select id="bankName" required>
+                                <option value="">Select a bank</option>
+                                <option value="sbi">State Bank of India (SBI)</option>
+                                <option value="hdfc">HDFC Bank</option>
+                                <option value="icici">ICICI Bank</option>
+                                <option value="axis">Axis Bank</option>
+                                <option value="bob">Bank of Baroda</option>
+                                <option value="pnb">Punjab National Bank</option>
+                                <option value="boi">Bank of India</option>
+                            </select>
+                        </div>
+                        <p style="color: var(--muted-foreground); font-size: 14px; margin-top: 10px;">You'll be redirected to your bank's secure website</p>
+                    </div>
+
+                    <!-- Digital Wallet Form -->
+                    <div id="wallet-form" class="payment-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="walletName">Select Your Wallet</label>
+                            <select id="walletName" required>
+                                <option value="">Select a wallet</option>
+                                <option value="paytm">Paytm</option>
+                                <option value="googlepay">Google Pay</option>
+                                <option value="phonepe">PhonePe</option>
+                                <option value="amazonpay">Amazon Pay</option>
+                            </select>
+                        </div>
+                        <p style="color: var(--muted-foreground); font-size: 14px; margin-top: 10px;">You'll be redirected to your wallet app to complete the payment</p>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Review Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review Order -->
+                <div class="form-step" id="step-3">
+                    <h2>Review Your Order</h2>
+                    
+                    <div class="review-section">
+                        <h3>Shipping Address</h3>
+                        <div id="addressReview" class="review-content"></div>
+                        <button type="button" class="btn-text" onclick="prevStep(3)">Edit</button>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>Payment Method</h3>
+                        <div id="paymentReview" class="review-content"></div>
+                        <button type="button" class="btn-text" onclick="goToStep(2)">Edit</button>
+                    </div>
+
+                    <div class="security-notice">
+                        <span class="security-icon">🔒</span>
+                        <span>Your payment information is secure and encrypted with SSL technology</span>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Back</button>
+                        <button type="button" class="btn btn-success" onclick="completePayment()">Place Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section - Order Summary -->
+            <div class="order-summary-section">
+                <div class="order-summary-sticky">
+                    <h3>Order Summary</h3>
+
+                    <!-- Products List -->
+                    <div class="products-list" id="productsList">
+                        <!-- Products will be loaded from localStorage -->
+                    </div>
+
+                    <!-- Summary Breakdown -->
+                    <div class="summary-breakdown">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">₹0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span id="shipping">₹99.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (18% GST)</span>
+                            <span id="tax">₹0.00</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total">
+                            <span>Total Amount</span>
+                            <span id="total">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Promo Code -->
+                    <div class="promo-code">
+                        <select id="promoCode">
+                            <option value="">Select a promo code</option>
+                            <option value="RURAL10">RURAL10 - 10% Off</option>
+                            <option value="FRESH20">FRESH20 - 20% Off</option>
+                            <option value="SAVE50">SAVE50 - ₹50 Off</option>
+                            <option value="RURAL25">RURAL25 - 25% Off (Min ₹1000)</option>
+                        </select>
+                        <button type="button" class="btn btn-small" onclick="applyPromo()">Apply</button>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="badge">
+                            <span class="badge-icon">✓</span>
+                            <span class="badge-text">Secure Checkout</span>
+                        </div>
+                        <div class="badge">
+                            <span class="badge-icon">✓</span>
+                            <span class="badge-text">Fast Delivery</span>
+                        </div>
+                        <div class="badge">
+                            <span class="badge-icon">✓</span>
+                            <span class="badge-text">Money Back</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success">
+            <div class="modal-icon">✓</div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Your order has been confirmed. You'll receive an email confirmation shortly.</p>
+            <div id="orderDetails" class="order-details"></div>
+            <button type="button" class="btn btn-primary" onclick="goToHome()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="PaymentPage.js"></script>
+</body>
+</html>

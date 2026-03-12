@@ -12,19 +12,4 @@ function typeMessage() {
   }
 }
 
-setTimeout(typeMessage, 2000);
-
-
-// <script>
-// 	if (!document.querySelector('#ftmwzfgx6')) {
-// 		var newDiv = document.createElement('div');
-// 		newDiv.setAttribute('key', 'Translator Dropdown');
-// 		newDiv.setAttribute('class', 'ft');
-// 		newDiv.setAttribute('id', 'ftmwzfgx6');
-// 		var newScript = document.createElement('script');
-// 		newScript.setAttribute('src', 'https://wdg.fouita.com/widgets/0x3b2d5e.js');
-// 		newDiv.appendChild(newScript);
-
-// 		document.body.appendChild(newDiv);
-// 	}
-// </script>
+setTimeout(typeMessage, 1000);

@@ -1,4 +1,4 @@
-let cart = JSON.parse(localStorage.getItem('graminCart')) || [];
+let cart = JSON.parse(localStorage.getItem('ruralconnect')) || [];
 updateCartCount();
 
 function openProduct(id, name, price, desc, img) {
@@ -8,16 +8,16 @@ function openProduct(id, name, price, desc, img) {
     const url = `product-details.html?id=${id}&name=${encodeURIComponent(name)}&price=${price}&desc=${encodeURIComponent(desc)}&img=${encodeURIComponent(img)}`;
     window.location.href = url;
 }
-// Add to Cart Logic
+//Add to Cart Logic
 function addToCart(id, name, price) {
-    let item = cart.find(i => i.id === id);
-    if (item) {
+   let item = cart.find(i => i.id === id);
+   if (item) {
         item.quantity++;
-    } else {
+  } else {
         cart.push({ id, name, price: parseInt(price), quantity: 1 });
-    }
+   }
     saveCart();
-    alert(name + " added to cart!");
+  alert(name + " added to cart!");
 }
 
 function saveCart() {
@@ -85,4 +85,14 @@ function clearCart() {
         cart = [];
         saveCart();
     }
+}
+function darkonclick(clickedbtn){
+   let cbtn = document.querySelectorAll(".category-btn");
+
+    cbtn.forEach(btn => btn.classList.remove("active"));
+    clickedbtn.classList.add("active");
+    window.Location.href
+}
+window.onload = function(){
+    updateCartCount();
 }

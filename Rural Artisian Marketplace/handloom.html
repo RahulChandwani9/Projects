@@ -6,6 +6,7 @@
     <title>RuralConnect - Premium Marketplace</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -34,11 +35,10 @@
                         </a>
                         <div class="detail">Log in</div>
                     </div>
-                    <div class="logoandname">
-                        <a href="#" class="rumarket-icon" title="Cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                        <div class="detail">Add To Cart</div>
+                    <div class="logoandname" onclick="toggleCart()" style="cursor:pointer;">
+                    <a href="#" class="rumarket-icon" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div class="detail">Cart (<span id="cartCount">0</span>)</div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -52,11 +52,11 @@
             <h3>Categories</h3>
             <button class="category-btn" onclick="location.href='index.html'">All Products</button>
             <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
-            <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
+            <button class="category-btn active" onclick="location.href='Handloom.html'">Handloom</button>
             <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
             <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
             <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
-            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='bamboo.html'">Bamboo</button>
             <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
             <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
             <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
@@ -109,6 +109,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    
 </body>
 </html>

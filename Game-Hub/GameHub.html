@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Game Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#050508; --bg2:#08090f; --panel:#0d0f1a; --panel2:#111420;
+  --border:#1a1e30; --border2:#242840;
+  --c1:#00f0ff; --c2:#ff2d55; --c3:#ffcc00; --c4:#bf5fff; --c5:#00e676;
+  --text:#eef0ff; --text2:#7a82a8; --text3:#3a4060;
+  --fh:'Bebas Neue',sans-serif; --fb:'Rajdhani',sans-serif; --fm:'Share Tech Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;cursor:none;}
+
+#cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--c1);pointer-events:none;z-index:9999;mix-blend-mode:screen;transition:transform .1s,background .2s;transform:translate(-50%,-50%);}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(0,240,255,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+body::after{content:'';position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse 90% 90% at 50% 50%,transparent 40%,rgba(5,5,8,.85) 100%);pointer-events:none;}
+.scanlines{position:fixed;inset:0;z-index:3;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);pointer-events:none;}
+.wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;border-bottom:1px solid var(--border);background:rgba(5,5,8,.7);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;flex-shrink:0;}
+.topbar-logo{display:flex;align-items:center;gap:14px;}
+.logo-hex{width:38px;height:38px;background:linear-gradient(135deg,var(--c1),#0080ff);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:.9rem;color:#000;letter-spacing:.05em;}
+.logo-name{font-family:var(--fh);font-size:1.6rem;letter-spacing:.15em;background:linear-gradient(90deg,var(--c1),#fff 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-pills{display:flex;gap:10px;}
+.pill{display:flex;align-items:center;gap:6px;padding:5px 14px;border:1px solid var(--border2);border-radius:20px;font-family:var(--fm);font-size:.58rem;color:var(--text2);letter-spacing:.08em;}
+.pill-dot{width:6px;height:6px;border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.pill-dot.cyan{background:var(--c1);box-shadow:0 0 6px var(--c1);}
+.pill-dot.red{background:var(--c2);box-shadow:0 0 6px var(--c2);animation-delay:.4s;}
+.pill-dot.green{background:var(--c5);box-shadow:0 0 6px var(--c5);animation-delay:.8s;}
+
+/* HERO */
+.hero{padding:80px 48px 60px;text-align:center;position:relative;}
+.hero-eyebrow{font-family:var(--fm);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--c1);margin-bottom:18px;animation:fadeDown .8s ease both;}
+.hero-title{font-family:var(--fh);font-size:clamp(4rem,10vw,8.5rem);line-height:.92;letter-spacing:.06em;margin-bottom:22px;animation:fadeDown .8s .1s ease both;}
+.hero-title .line1{display:block;background:linear-gradient(90deg,var(--c1) 0%,#fff 40%,var(--c1) 100%);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;}
+.hero-title .line2{display:block;color:var(--text);-webkit-text-stroke:1px rgba(255,255,255,.08);}
+@keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-sub{font-size:1.05rem;font-weight:400;color:var(--text2);letter-spacing:.06em;max-width:500px;margin:0 auto 32px;animation:fadeDown .8s .2s ease both;}
+.hero-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--c1),transparent);margin:0 auto;animation:fadeDown .8s .3s ease both;}
+.section-label{text-align:center;font-family:var(--fm);font-size:.62rem;letter-spacing:.3em;color:var(--text3);padding:0 48px 36px;text-transform:uppercase;animation:fadeUp .8s .4s ease both;}
+
+/* GRID */
+.games-wrap{padding:0 48px 80px;animation:fadeUp .8s .5s ease both;}
+.games-row-top{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:24px;}
+.games-row-bot{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:calc(66.66% + 8px);margin:0 auto;}
+
+/* CARD */
+.card{--accent:var(--c1);--ar:0,240,255;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px 24px 24px;cursor:none;overflow:hidden;min-height:280px;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s;text-decoration:none;color:inherit;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(var(--ar),.06) 0%,transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.card:hover{transform:translateY(-10px) scale(1.02);border-color:var(--accent);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px var(--accent),inset 0 0 40px rgba(var(--ar),.04);}
+.card:hover::before{transform:scaleX(1);}
+.card:hover::after{opacity:1;}
+.card.c1{--accent:var(--c1);--ar:0,240,255;}
+.card.c2{--accent:var(--c2);--ar:255,45,85;}
+.card.c3{--accent:var(--c3);--ar:255,204,0;}
+.card.c4{--accent:var(--c4);--ar:191,95,255;}
+.card.c5{--accent:var(--c5);--ar:0,230,118;}
+.corner{position:absolute;width:14px;height:14px;border-color:var(--accent);border-style:solid;opacity:0;transition:opacity .3s;}
+.card:hover .corner{opacity:.6;}
+.corner.tl{top:10px;left:10px;border-width:1px 0 0 1px;}
+.corner.tr{top:10px;right:10px;border-width:1px 1px 0 0;}
+.corner.bl{bottom:10px;left:10px;border-width:0 0 1px 1px;}
+.corner.br{bottom:10px;right:10px;border-width:0 1px 1px 0;}
+.card-num{position:absolute;top:24px;left:24px;font-family:var(--fm);font-size:.55rem;color:var(--text3);letter-spacing:.1em;}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
+.card-icon-wrap{width:62px;height:62px;background:rgba(var(--ar),.08);border:1px solid rgba(var(--ar),.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;transition:background .3s,transform .3s;flex-shrink:0;}
+.card:hover .card-icon-wrap{background:rgba(var(--ar),.15);transform:scale(1.08) rotate(-4deg);}
+.card-badge{font-family:var(--fm);font-size:.55rem;letter-spacing:.12em;padding:4px 10px;border-radius:4px;background:rgba(var(--ar),.1);color:var(--accent);border:1px solid rgba(var(--ar),.25);text-transform:uppercase;}
+.card-body{flex:1;}
+.card-title{font-family:var(--fh);font-size:1.7rem;letter-spacing:.08em;line-height:1;margin-bottom:8px;color:var(--text);transition:color .2s;}
+.card:hover .card-title{color:var(--accent);}
+.card-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.chip{font-family:var(--fm);font-size:.52rem;padding:3px 8px;border-radius:3px;background:var(--panel2);color:var(--text3);border:1px solid var(--border);letter-spacing:.08em;text-transform:uppercase;}
+.card-desc{font-size:.82rem;font-weight:400;color:var(--text2);line-height:1.6;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+.play-btn{display:flex;align-items:center;gap:8px;font-family:var(--fh);font-size:.85rem;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;padding:8px 18px;border:1px solid rgba(var(--ar),.3);border-radius:6px;background:rgba(var(--ar),.06);transition:background .2s,box-shadow .2s,gap .2s;}
+.card:hover .play-btn{background:rgba(var(--ar),.14);box-shadow:0 0 16px rgba(var(--ar),.2);gap:12px;}
+.play-arrow{font-size:.75rem;transition:transform .2s;}
+.card:hover .play-arrow{transform:translateX(4px);}
+.card-diff{font-family:var(--fm);font-size:.52rem;color:var(--text3);letter-spacing:.08em;text-align:right;}
+.card-diff span{display:block;color:var(--accent);font-size:.62rem;margin-top:2px;}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;font-family:var(--fm);font-size:.58rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;}
+.footer-dots{display:flex;gap:8px;}
+.footer-dots span{width:8px;height:8px;border-radius:50%;animation:blink 2s infinite;}
+
+@media(max-width:900px){
+  .topbar{padding:0 24px;} .topbar-pills{display:none;}
+  .hero{padding:50px 24px 40px;} .section-label{padding:0 24px 28px;}
+  .games-wrap{padding:0 24px 60px;}
+  .games-row-top{grid-template-columns:1fr 1fr;}
+  .games-row-bot{max-width:100%;grid-template-columns:1fr 1fr;}
+}
+@media(max-width:580px){
+  .games-row-top,.games-row-bot{grid-template-columns:1fr;max-width:100%;}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bgCanvas"></canvas>
+<div class="scanlines"></div>
+<div class="wrap">
+
+  <header class="topbar">
+    <div class="topbar-logo">
+      <div class="logo-hex">NX</div>
+      <div class="logo-name">NEXUS</div>
+    </div>
+    <div class="topbar-pills">
+      <div class="pill"><div class="pill-dot cyan"></div>5 GAMES ONLINE</div>
+      <div class="pill"><div class="pill-dot red"></div>MULTIPLAYER READY</div>
+      <div class="pill"><div class="pill-dot green"></div>SYSTEM ACTIVE</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-eyebrow">// WELCOME TO THE ARENA</div>
+    <h1 class="hero-title">
+      <span class="line1">GAME</span>
+      <span class="line2">HUB</span>
+    </h1>
+    <p class="hero-sub">Five worlds. One portal. Choose your game and enter the zone.</p>
+    <div class="hero-rule"></div>
+  </section>
+
+  <div class="section-label">— Select Your Game —</div>
+
+  <div class="games-wrap">
+    <div class="games-row-top">
+
+      <a class="card c1" href="Random-Number-Guess/random.html">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="card-num">01 / 05</div>
+        <div class="card-header">
+          <div class="card-icon-wrap">🎲</div>
+          <div class="card-badge">PUZZLE</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">NUMBER GUESS</div>
+          <div class="card-chips"><span class="chip">LOGIC</span><span class="chip">DEDUCTION</span><span class="chip">1 PLAYER</span></div>
+          <div class="card-desc">Test your intuition. Pick a number, follow the clues, crack the code before your attempts run out.</div>
+        </div>
+        <div class="card-footer">
+          <div class="play-btn">PLAY NOW <span class="play-arrow">→</span></div>
+          <div class="card-diff">DIFFICULTY<span>EASY</span></div>
+        </div>
+      </a>
+
+      <a class="card c2" href="Tic-Tac-Toe/xo.html">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="card-num">02 / 05</div>
+        <div class="card-header">
+          <div class="card-icon-wrap">⚔️</div>
+          <div class="card-badge">VS CPU</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">TIC TAC TOE</div>
+          <div class="card-chips"><span class="chip">STRATEGY</span><span class="chip">AI OPPONENT</span><span class="chip">CLASSIC</span></div>
+          <div class="card-desc">Old school, undefeated. Challenge the AI or a friend in the timeless battle of X's and O's.</div>
+        </div>
+        <div class="card-footer">
+          <div class="play-btn">PLAY NOW <span class="play-arrow">→</span></div>
+          <div class="card-diff">DIFFICULTY<span>MEDIUM</span></div>
+        </div>
+      </a>
+
+      <a class="card c3" href="Word Scramble/word.html">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="card-num">03 / 05</div>
+        <div class="card-header">
+          <div class="card-icon-wrap">🔤</div>
+          <div class="card-badge">WORD</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">WORD SCRAMBLE</div>
+          <div class="card-chips"><span class="chip">LANGUAGE</span><span class="chip">SPEED</span><span class="chip">STREAKS</span></div>
+          <div class="card-desc">Letters all mixed up? Unscramble them fast, rack up your streak, and dominate the leaderboard.</div>
+        </div>
+        <div class="card-footer">
+          <div class="play-btn">PLAY NOW <span class="play-arrow">→</span></div>
+          <div class="card-diff">DIFFICULTY<span>MEDIUM</span></div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="games-row-bot">
+
+      <a class="card c4" href="Simon Says/simon.html">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="card-num">04 / 05</div>
+        <div class="card-header">
+          <div class="card-icon-wrap">🧠</div>
+          <div class="card-badge">MEMORY</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">SIMON SAYS</div>
+          <div class="card-chips"><span class="chip">MEMORY</span><span class="chip">REFLEX</span><span class="chip">LEVELS</span></div>
+          <div class="card-desc">Watch. Remember. Repeat. Each round gets longer. How deep does your memory go?</div>
+        </div>
+        <div class="card-footer">
+          <div class="play-btn">PLAY NOW <span class="play-arrow">→</span></div>
+          <div class="card-diff">DIFFICULTY<span>HARD</span></div>
+        </div>
+      </a>
+
+      <a class="card c5" href="Math-Quiz/quiz.html">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="card-num">05 / 05</div>
+        <div class="card-header">
+          <div class="card-icon-wrap">🧮</div>
+          <div class="card-badge">TIMED</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">MATH QUIZ</div>
+          <div class="card-chips"><span class="chip">ARITHMETIC</span><span class="chip">TIMED</span><span class="chip">SCORE</span></div>
+          <div class="card-desc">Numbers don't lie. Race the clock, solve fast, beat your personal best score every round.</div>
+        </div>
+        <div class="card-footer">
+          <div class="play-btn">PLAY NOW <span class="play-arrow">→</span></div>
+          <div class="card-diff">DIFFICULTY<span>VARIABLE</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>NEXUS GAME HUB &nbsp;·&nbsp; ALL SYSTEMS OPERATIONAL</div>
+    <div class="footer-dots">
+      <span style="background:var(--c1);box-shadow:0 0 6px var(--c1)"></span>
+      <span style="background:var(--c2);box-shadow:0 0 6px var(--c2);animation-delay:.3s"></span>
+      <span style="background:var(--c3);box-shadow:0 0 6px var(--c3);animation-delay:.6s"></span>
+      <span style="background:var(--c4);box-shadow:0 0 6px var(--c4);animation-delay:.9s"></span>
+      <span style="background:var(--c5);box-shadow:0 0 6px var(--c5);animation-delay:1.2s"></span>
+    </div>
+    <div>ENTER THE ZONE &nbsp;·&nbsp; PLAY TO WIN</div>
+  </footer>
+
+</div>
+
+<script>
+/* CURSOR */
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+const ACCENTS=['#00f0ff','#ff2d55','#ffcc00','#bf5fff','#00e676'];
+document.querySelectorAll('.card').forEach((c,i)=>{
+  c.addEventListener('mouseenter',()=>{cursor.style.background=ACCENTS[i];cursor.style.transform='translate(-50%,-50%) scale(1.8)';ring.style.width='54px';ring.style.height='54px';ring.style.borderColor=ACCENTS[i]+'80';});
+  c.addEventListener('mouseleave',()=>{cursor.style.background='#00f0ff';cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(0,240,255,.4)';});
+});
+
+/* CANVAS */
+const canvas=document.getElementById('bgCanvas'),ctx=canvas.getContext('2d');
+let W=canvas.width=window.innerWidth,H=canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;});
+const PAL=['#00f0ff','#ff2d55','#ffcc00','#bf5fff','#00e676'];
+function newStar(bot){return{x:Math.random()*W,y:bot?H+10:Math.random()*H,size:Math.random()*1.5+.3,speed:Math.random()*.3+.05,color:PAL[Math.floor(Math.random()*PAL.length)],alpha:Math.random()*.6+.1,twinkle:Math.random()*Math.PI*2};}
+const stars=Array.from({length:120},()=>newStar());
+const orbs=[{x:.15,y:.25,c:'#00f0ff',r:.35},{x:.85,y:.75,c:'#bf5fff',r:.3},{x:.5,y:1.1,c:'#ff2d55',r:.25}];
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(26,30,48,.5)';ctx.lineWidth=1;
+  for(let x=0;x<=W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<=H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  orbs.forEach(o=>{const g=ctx.createRadialGradient(o.x*W,o.y*H,0,o.x*W,o.y*H,o.r*W);g.addColorStop(0,o.c+'18');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);});
+  stars.forEach((s,i)=>{s.twinkle+=.02;s.y-=s.speed;if(s.y<-5)stars[i]=newStar(true);const a=s.alpha*(.6+.4*Math.sin(s.twinkle));ctx.beginPath();ctx.arc(s.x,s.y,s.size,0,Math.PI*2);ctx.fillStyle=s.color+Math.round(a*255).toString(16).padStart(2,'0');ctx.fill();});
+  if(Math.random()<.003){ctx.fillStyle='rgba(0,240,255,.015)';ctx.fillRect(0,Math.random()*H,W,1+Math.random()*3);}
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* CARD ENTRANCE */
+document.querySelectorAll('.card').forEach((c,i)=>{
+  c.style.opacity='0';c.style.transform='translateY(40px)';
+  c.style.transition=`opacity .6s ${.1+i*.1}s ease,transform .6s ${.1+i*.1}s cubic-bezier(.34,1.2,.64,1),border-color .3s,box-shadow .3s`;
+  setTimeout(()=>{c.style.opacity='1';c.style.transform='translateY(0)';},100+i*100);
+});
+
+/* PARALLAX */
+const ht=document.querySelector('.hero-title');
+document.addEventListener('mousemove',e=>{const x=(e.clientX/innerWidth-.5)*8,y=(e.clientY/innerHeight-.5)*4;ht.style.transform=`translate(${x}px,${y}px)`;});
+</script>
+</body>
+</html>

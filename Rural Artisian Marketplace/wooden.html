@@ -7,6 +7,7 @@
     <title>RuralConnect - Premium Marketplace</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -35,11 +36,9 @@
                         </a>
                         <div class="detail">Log in</div>
                     </div>
-                    <div class="logoandname">
-                        <a href="#" class="rumarket-icon" title="Cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                        <div class="detail">Add To Cart</div>
+                    <div class="logoandname" onclick="toggleCart()" style="cursor:pointer;">
+                    <a href="#" class="rumarket-icon" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div class="detail">Cart (<span id="cartCount">0</span>)</div>
                     </div>
                 </div>
             </div>
@@ -54,10 +53,10 @@
             <button class="category-btn" onclick="location.href='index.html'">All Products</button>
             <button class="category-btn" onclick="location.href='pottery.html'">Pottery</button>
             <button class="category-btn" onclick="location.href='Handloom.html'">Handloom</button>
-            <button class="category-btn" onclick="location.href='wooden.html'">Wooden</button>
+            <button class="category-btn active" onclick="location.href='wooden.html'">Wooden</button>
             <button class="category-btn" onclick="location.href='jewelry.html'">Jewelry</button>
             <button class="category-btn" onclick="location.href='metalcraft.html'">Metalcraft</button>
-            <button class="category-btn active" onclick="location.href='bamboo.html'">Bamboo</button>
+            <button class="category-btn" onclick="location.href='bamboo.html'">Bamboo</button>
             <button class="category-btn" onclick="location.href='carpets.html'">Carpets</button>
             <button class="category-btn" onclick="location.href='Painting.html'">Painting</button>
             <button class="category-btn" onclick="location.href='leather.html'">Leather</button>
@@ -116,7 +115,19 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+     <div id="cartSidebar" class="cart-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
+            <h3 style="margin:0;">Your Shopping Cart</h3>
+            <span onclick="toggleCart()" style="font-size:30px; cursor:pointer;">&times;</span>
+        </div>
+        <hr>
+        <div id="cartList" style="padding:10px; overflow-y:auto; height:70vh;"></div>
+        <div style="padding:20px; border-top:1px solid #ddd; background:white;">
+            <h4>Total: ₹<span id="totalPrice">0</span></h4>
+            <button onclick="window.location.href='paymentPage.html'" class="orange-btn" style="width:100%; border-radius:5px; padding:12px; color:white; border:none; cursor:pointer; margin-top: 10px; background-color: #4D3328;">Proceed to Checkout</button>
+        </div>
+    </div>
+    
 </body>
 </html>
    

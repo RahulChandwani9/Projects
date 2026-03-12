@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RuralConnect – Buyer Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark:  #36241C; --brown1: #422C22; --brown2: #4D3328;
+      --brown3:#644234; --brown4: #815F51; --tan:    #AA8B7E;
+      --sand:  #D3B6AB; --blush: #E6D5CE; --cream:  #F0E5E1; --white: #F9F5F3;
+    }
+    body { font-family:'Lato',sans-serif; background:var(--cream); min-height:100vh; display:flex; align-items:stretch; overflow-x:hidden; }
+
+    /* LEFT */
+    .panel-left { width:45%; background:var(--dark); position:relative; display:flex; flex-direction:column; justify-content:center; padding:60px 56px; overflow:hidden; }
+    .panel-left::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; background:var(--brown2); opacity:.45; }
+    .panel-left::after  { content:''; position:absolute; bottom:-60px; left:-60px; width:260px; height:260px; border-radius:50%; background:var(--brown3); opacity:.3; }
+    .brand { display:flex; align-items:center; margin-bottom:48px; position:relative; z-index:1; }
+    .brand-name { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream); letter-spacing:.5px; }
+    .tagline { position:relative; z-index:1; }
+    .tagline h1 { font-family:'Playfair Display',serif; font-size:2.6rem; line-height:1.2; color:var(--white); margin-bottom:18px; }
+    .tagline h1 span { color:var(--sand); }
+    .tagline p { color:var(--blush); font-size:.97rem; line-height:1.7; max-width:320px; font-weight:300; }
+    .perks { position:relative; z-index:1; margin-top:48px; display:flex; flex-direction:column; gap:14px; }
+    .perk { display:flex; align-items:center; gap:12px; color:var(--cream); font-size:.9rem; font-weight:300; }
+    .perk-dot { width:8px; height:8px; border-radius:50%; background:var(--tan); flex-shrink:0; }
+
+    /* RIGHT */
+    .panel-right { flex:1; display:flex; align-items:center; justify-content:center; padding:60px 40px; background:var(--white); position:relative; }
+    .panel-right::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg,var(--brown3),var(--tan),var(--sand)); }
+
+    .form-card { width:100%; max-width:440px; }
+    .form-header { margin-bottom:36px; }
+    .form-badge { display:inline-block; background:var(--blush); color:var(--brown2); font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:14px; }
+    .form-title { font-family:'Playfair Display',serif; font-size:2rem; color:var(--dark); line-height:1.2; }
+    .form-sub { margin-top:8px; color:var(--brown4); font-size:.9rem; font-weight:300; }
+
+    .field-group { margin-bottom:20px; }
+    label { display:block; font-size:.78rem; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--brown2); margin-bottom:7px; }
+
+    /* input + mic in a row */
+    .input-row { display:flex; align-items:center; gap:9px; }
+    .input-wrap { position:relative; flex:1; }
+    .input-wrap .icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:16px; color:var(--tan); pointer-events:none; }
+    input[type="text"], input[type="tel"], input[type="password"] {
+      width:100%; padding:13px 14px 13px 42px;
+      border:1.5px solid var(--blush); border-radius:10px;
+      background:var(--cream); color:var(--dark); font-size:.95rem; font-family:'Lato',sans-serif;
+      transition:border-color .2s,box-shadow .2s,background .2s; outline:none;
+    }
+    input::placeholder { color:var(--tan); font-weight:300; }
+    input:focus { border-color:var(--brown3); background:var(--white); box-shadow:0 0 0 3px rgba(100,66,52,.12); }
+
+    /* MIC BUTTON */
+    .mic-btn {
+      flex-shrink:0; width:42px; height:42px; border-radius:50%;
+      border:1.5px solid var(--blush); background:var(--cream);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:19px; transition:background .2s,border-color .2s,box-shadow .2s;
+      position:relative;
+    }
+    .mic-btn:hover { background:var(--blush); border-color:var(--tan); }
+    .mic-btn.speaking { background:var(--brown3); border-color:var(--brown3); animation:pulse 1s infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow:0 0 0 4px rgba(100,66,52,.2); }
+      50%      { box-shadow:0 0 0 9px rgba(100,66,52,.07); }
+    }
+    /* tooltip */
+    .mic-btn::before {
+      content:attr(data-tip);
+      position:absolute; bottom:calc(100% + 8px); right:0;
+      background:var(--dark); color:var(--cream);
+      font-size:.7rem; font-family:'Lato',sans-serif; white-space:nowrap;
+      padding:5px 10px; border-radius:7px;
+      opacity:0; pointer-events:none; transition:opacity .2s;
+    }
+    .mic-btn:hover::before { opacity:1; }
+
+    .hint { font-size:.78rem; color:var(--tan); margin-top:6px; font-weight:300; }
+    .strength-bar { height:4px; border-radius:2px; background:var(--blush); margin-top:7px; overflow:hidden; }
+    .strength-fill { height:100%; border-radius:2px; width:0; transition:width .4s,background .4s; }
+
+    .btn-primary {
+      width:100%; padding:15px; background:var(--brown2); color:var(--white);
+      font-family:'Lato',sans-serif; font-size:.95rem; font-weight:700; letter-spacing:1px;
+      border:none; border-radius:10px; cursor:pointer; margin-top:8px;
+      transition:background .2s,transform .1s;
+    }
+    .btn-primary:hover { background:var(--dark); }
+    .btn-primary:active { transform:scale(.99); }
+
+    .divider { text-align:center; color:var(--sand); font-size:.8rem; margin:20px 0 16px; }
+    .login-link { text-align:center; color:var(--brown4); font-size:.88rem; }
+    .login-link a { color:var(--brown2); font-weight:700; text-decoration:none; }
+    .login-link a:hover { text-decoration:underline; }
+
+    .toast {
+      position:fixed; top:24px; right:24px; background:var(--brown2); color:var(--white);
+      padding:14px 22px; border-radius:10px; font-size:.88rem; font-weight:700;
+      box-shadow:0 8px 30px rgba(54,36,28,.35); display:flex; align-items:center; gap:10px;
+      transform:translateX(140%); transition:transform .4s cubic-bezier(.22,1,.36,1); z-index:999;
+    }
+    .toast.show { transform:translateX(0); }
+
+    @media(max-width:768px) {
+      body { flex-direction:column; }
+      .panel-left { width:100%; padding:40px 30px; }
+      .tagline h1 { font-size:2rem; }
+      .perks { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="panel-left">
+  <div class="brand">
+    <span class="brand-name">RuralConnect</span>
+  </div>
+  <div class="tagline">
+    <h1>Shop <span>authentic</span> rural crafts with heart.</h1>
+    <p>Discover handcrafted goods made by real artisans from Indian villages — delivered fresh to your door.</p>
+  </div>
+  <div class="perks">
+    <div class="perk"><div class="perk-dot"></div>200+ artisans empowered across India</div>
+    <div class="perk"><div class="perk-dot"></div>Direct from source — no middlemen</div>
+    <div class="perk"><div class="perk-dot"></div>Every purchase supports a rural family</div>
+    <div class="perk"><div class="perk-dot"></div>Ethically priced &amp; fair-trade certified</div>
+  </div>
+</div>
+
+<div class="panel-right">
+  <div class="form-card">
+    <div class="form-header">
+      <div class="form-badge">🛍 Buyer</div>
+      <div class="form-title">Create your account</div>
+      <div class="form-sub">Join thousands of conscious shoppers today.</div>
+    </div>
+
+    <form id="buyerForm" onsubmit="handleSubmit(event)">
+
+      <div class="field-group">
+        <label>Full Name</label>
+        <div class="input-row">
+          <div class="input-wrap">
+            <span class="icon">👤</span>
+            <input type="text" id="name" placeholder="e.g. Priya Sharma" required />
+          </div>
+          <button type="button" class="mic-btn" data-tip="What to enter here"
+            onclick="speak(this, 'Please enter your full name. For example, Priya Sharma.')">🎙️</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Phone Number</label>
+        <div class="input-row">
+          <div class="input-wrap">
+            <span class="icon">📱</span>
+            <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10" required />
+          </div>
+          <button type="button" class="mic-btn" data-tip="What to enter here"
+            onclick="speak(this, 'Please enter your 10 digit mobile phone number. We will send a one-time password to verify your account.')">🎙️</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Create Password</label>
+        <div class="input-row">
+          <div class="input-wrap">
+            <span class="icon">🔒</span>
+            <input type="password" id="password" placeholder="Min. 8 characters" oninput="checkStrength(this.value)" required />
+          </div>
+          <button type="button" class="mic-btn" data-tip="What to enter here"
+            onclick="speak(this, 'Please create a strong password with at least 8 characters. For best security, include uppercase letters, numbers, and special symbols like exclamation mark or hash.')">🎙️</button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+        <div class="hint" id="strengthLabel">Enter a password to check strength</div>
+      </div>
+
+      <div class="field-group">
+        <label>Confirm Password</label>
+        <div class="input-row">
+          <div class="input-wrap">
+            <span class="icon">🔒</span>
+            <input type="password" id="confirm" placeholder="Re-enter your password" required />
+          </div>
+          <button type="button" class="mic-btn" data-tip="What to enter here"
+            onclick="speak(this, 'Please re-enter the same password you just created above. Both passwords must match exactly to continue.')">🎙️</button>
+        </div>
+        <div class="hint" id="matchHint"></div>
+      </div>
+
+      <button type="submit" class="btn-primary">Create Buyer Account →</button>
+    </form>
+
+    <div class="divider">— Already have an account? —</div>
+    <div class="login-link">
+      <a href="login2.html">Log in here</a> &nbsp;|&nbsp; Are you a seller? <a href="seller-signup.html">Sign up as Seller</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Account created! Welcome to RuralConnect.</div>
+
+<script>
+  /* ── Voice ── */
+  function speak(btn, text) {
+    if (!window.speechSynthesis) { alert('Voice not supported in this browser.'); return; }
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.mic-btn').forEach(b => b.classList.remove('speaking'));
+    btn.classList.add('speaking');
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-IN'; utter.rate = 0.9; utter.pitch = 1.05;
+    utter.onend = () => btn.classList.remove('speaking');
+    utter.onerror = () => btn.classList.remove('speaking');
+    window.speechSynthesis.speak(utter);
+  }
+
+  /* ── Strength ── */
+  function checkStrength(val) {
+    const fill = document.getElementById('strengthFill');
+    const label = document.getElementById('strengthLabel');
+    let s = 0;
+    if (val.length >= 8) s++;
+    if (/[A-Z]/.test(val)) s++;
+    if (/[0-9]/.test(val)) s++;
+    if (/[^A-Za-z0-9]/.test(val)) s++;
+    const m = [
+      {w:'0%',  bg:'transparent',txt:'Enter a password to check strength'},
+      {w:'25%', bg:'#e07b54',    txt:'Weak'},
+      {w:'50%', bg:'#e0a854',    txt:'Fair'},
+      {w:'75%', bg:'#9ab87a',    txt:'Good'},
+      {w:'100%',bg:'#5c9e52',    txt:'Strong 💪'},
+    ];
+    fill.style.width = m[s].w; fill.style.background = m[s].bg; label.textContent = m[s].txt;
+  }
+
+  document.getElementById('confirm').addEventListener('input', function () {
+    const pw = document.getElementById('password').value;
+    const hint = document.getElementById('matchHint');
+    if (!this.value) { hint.textContent=''; return; }
+    hint.textContent = this.value === pw ? '✅ Passwords match' : '❌ Passwords do not match';
+    hint.style.color = this.value === pw ? '#5c9e52' : '#c0392b';
+  });
+
+  async function handleSubmit(e) {
+  e.preventDefault();
+
+  const phone = document.getElementById("phone").value;
+  const password = document.getElementById("password").value;
+  const confirm = document.getElementById("confirm").value;
+
+  if (password !== confirm) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+
+    const response = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        phone: phone,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+
+      alert("Account created successfully!");
+
+      // redirect to homepage
+      window.location.href = "rural.html";
+
+    } else {
+
+      alert(data.message);
+
+    }
+
+  } catch (error) {
+
+    alert("Server error. Please try again.");
+
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Ignore all node_modules folders
+**/node_modules/
+
+# Ignore build or dist folders (React build output)
+**/build/
+**/dist/
+
+# Ignore all .env files
+**/.env
