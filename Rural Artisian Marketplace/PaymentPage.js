@@ -4,6 +4,18 @@ let currentStep = 1;
 const totalSteps = 3;
 let cartProducts = [];
 let orderData = {};
+let activeCartKey = 'graminCart'; // Will be detected dynamically
+
+// ─── ALL POSSIBLE KEYS your app might use to store the cart ───────────────────
+const CART_KEY_CANDIDATES = [
+    'graminCart',
+    'cart',
+    'cartItems',
+    'ruralCart',
+    'ruralconnect_cart',
+    'myCart',
+    'shoppingCart'
+];
 
 // Country-State-City Mapping
 const locationData = {
@@ -13,7 +25,7 @@ const locationData = {
             'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Tirupati'],
             'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Aurangabad'],
             'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Salem', 'Tiruchirappalli'],
-            'Karnataka': ['Bangalore', 'Pune', 'Mysore', 'Hubballi', 'Davangere'],
+            'Karnataka': ['Bangalore', 'Mysore', 'Hubballi', 'Davangere'],
             'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Jamnagar'],
             'Delhi': ['New Delhi', 'Delhi'],
             'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Ghaziabad'],
@@ -82,32 +94,87 @@ document.addEventListener('DOMContentLoaded', function() {
     setupInputRestrictions();
 });
 
+// ─── SMART CART LOADER ────────────────────────────────────────────────────────
+// Tries every known key and picks the first that has items.
+// Also dumps ALL localStorage to console so you can find the exact key.
+function getCartFromStorage() {
+    console.group('LocalStorage Debug — all keys:');
+    for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        try { console.log('"' + k + '" =>', JSON.parse(localStorage.getItem(k))); }
+        catch { console.log('"' + k + '" =>', localStorage.getItem(k)); }
+    }
+    console.groupEnd();
+
+    // 1. Try known candidate keys
+    for (const key of CART_KEY_CANDIDATES) {
+        try {
+            const data = JSON.parse(localStorage.getItem(key));
+            if (Array.isArray(data) && data.length > 0) {
+                console.log('Cart found under key: "' + key + '"', data);
+                activeCartKey = key;
+                return data;
+            }
+        } catch(e) { /* skip */ }
+    }
+
+    // 2. Auto-scan all localStorage keys for anything that looks like a cart
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        try {
+            const data = JSON.parse(localStorage.getItem(key));
+            if (Array.isArray(data) && data.length > 0) {
+                const first = data[0];
+                if (first && (first.name || first.title) && (first.price !== undefined || first.cost !== undefined)) {
+                    console.log('Cart auto-detected under key: "' + key + '"', data);
+                    activeCartKey = key;
+                    return data;
+                }
+            }
+        } catch(e) { /* skip */ }
+    }
+
+    console.warn('No cart data found in localStorage under any key.');
+    return [];
+}
+
 // Load products from localStorage
 function loadProductsFromCart() {
-    const products = JSON.parse(localStorage.getItem('ruralconnect_products')) || [];
+    const products = getCartFromStorage();
     cartProducts = products;
-    
+
     const productsList = document.getElementById('productsList');
     productsList.innerHTML = '';
-    
+
     if (products.length === 0) {
-        productsList.innerHTML = '<p style="color: var(--muted-foreground); text-align: center; padding: 20px;">No products in cart</p>';
+        productsList.innerHTML =
+            '<div style="text-align:center;padding:20px;color:var(--muted-foreground);">' +
+            '<div style="font-size:32px;margin-bottom:8px;">🛒</div>' +
+            '<p style="font-weight:600;">No products in cart</p>' +
+            '<p style="font-size:12px;margin-top:6px;">Open browser DevTools (F12 → Console) to see what keys exist in localStorage.</p>' +
+            '</div>';
         return;
     }
-    
-    products.forEach((product, index) => {
+
+    products.forEach(function(product) {
+        const name  = product.name  || product.title   || 'Unknown Product';
+        const price = parseFloat(product.price || product.cost || 0);
+        const qty   = parseInt(product.quantity || product.qty || 1);
+        const img   = product.image || product.img || product.imageUrl || null;
+
         const productItem = document.createElement('div');
         productItem.className = 'product-item';
-        productItem.innerHTML = `
-            <div class="product-image">
-                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); display: flex; align-items: center; justify-content: center; font-size: 24px;">🛍️</div>
-            </div>
-            <div class="product-info">
-                <div class="product-name">${product.name}</div>
-                <div class="product-qty">Qty: 1</div>
-                <div class="product-price">₹${parseFloat(product.price).toFixed(2)}</div>
-            </div>
-        `;
+        productItem.innerHTML =
+            '<div class="product-image">' +
+            (img
+                ? '<img src="' + img + '" alt="' + name + '" onerror="this.parentElement.innerHTML=\'<div style=\\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;\\\'>🛍️</div>\'">'
+                : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;">🛍️</div>') +
+            '</div>' +
+            '<div class="product-info">' +
+            '<div class="product-name">' + name + '</div>' +
+            '<div class="product-qty">Qty: ' + qty + '</div>' +
+            '<div class="product-price">₹' + (price * qty).toFixed(2) + '</div>' +
+            '</div>';
         productsList.appendChild(productItem);
     });
 }
@@ -115,23 +182,25 @@ function loadProductsFromCart() {
 // Calculate totals
 function calculateTotals() {
     let subtotal = 0;
-    cartProducts.forEach(product => {
-        subtotal += parseFloat(product.price) || 0;
+    cartProducts.forEach(function(product) {
+        const price = parseFloat(product.price || product.cost || 0);
+        const qty   = parseInt(product.quantity || product.qty || 1);
+        subtotal += (price * qty) || 0;
     });
-    
-    const shipping = 99;
-    const tax = (subtotal + shipping) * 0.18;
+
+    const shipping = subtotal > 0 ? 99 : 0;
+    const tax   = (subtotal + shipping) * 0.18;
     const total = subtotal + shipping + tax;
-    
+
     document.getElementById('subtotal').textContent = '₹' + subtotal.toFixed(2);
     document.getElementById('shipping').textContent = '₹' + shipping.toFixed(2);
-    document.getElementById('tax').textContent = '₹' + tax.toFixed(2);
-    document.getElementById('total').textContent = '₹' + total.toFixed(2);
-    
+    document.getElementById('tax').textContent      = '₹' + tax.toFixed(2);
+    document.getElementById('total').textContent    = '₹' + total.toFixed(2);
+
     orderData.subtotal = subtotal;
     orderData.shipping = shipping;
-    orderData.tax = tax;
-    orderData.total = total;
+    orderData.tax      = tax;
+    orderData.total    = total;
 }
 
 // Navigate to next step
@@ -148,373 +217,227 @@ function nextStep(step) {
     }
 }
 
-// Navigate to previous step
-function prevStep(step) {
-    goToStep(step - 1);
-}
+function prevStep(step) { goToStep(step - 1); }
 
-// Go to specific step
 function goToStep(step) {
     if (step < 1 || step > totalSteps) return;
-    
-    // Hide all steps
-    document.querySelectorAll('.form-step').forEach(el => {
-        el.classList.remove('active');
-    });
-    
-    // Show selected step
-    document.getElementById(`step-${step}`).classList.add('active');
-    
-    // Update progress indicators
-    document.querySelectorAll('.step').forEach((el, index) => {
+    document.querySelectorAll('.form-step').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('step-' + step).classList.add('active');
+    document.querySelectorAll('.step').forEach(function(el, index) {
         const stepNum = index + 1;
         el.classList.remove('active', 'completed');
-        if (stepNum < step) {
-            el.classList.add('completed');
-        } else if (stepNum === step) {
-            el.classList.add('active');
-        }
+        if (stepNum < step)       el.classList.add('completed');
+        else if (stepNum === step) el.classList.add('active');
     });
-    
     currentStep = step;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Validate address form
 function validateAddressForm() {
-    const form = document.getElementById('address-form');
+    const form   = document.getElementById('address-form');
     const inputs = form.querySelectorAll('input[required], select[required]');
-    
-    let isValid = true;
+    let isValid  = true;
+
     const email = document.getElementById('email').value.trim();
-    const zip = document.getElementById('zip').value.trim();
-    
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const zip   = document.getElementById('zip').value.trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         document.getElementById('email').style.borderColor = 'red';
         alert('Please enter a valid email address');
         return false;
     }
     document.getElementById('email').style.borderColor = 'var(--border)';
-    
-    // Validate postal code (numbers only)
+
     if (!/^\d+$/.test(zip)) {
         document.getElementById('zip').style.borderColor = 'red';
         alert('Postal code should contain only numbers');
         return false;
     }
     document.getElementById('zip').style.borderColor = 'var(--border)';
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = 'red';
-            isValid = false;
-        } else {
-            input.style.borderColor = 'var(--border)';
-        }
+
+    inputs.forEach(function(input) {
+        if (!input.value.trim()) { input.style.borderColor = 'red'; isValid = false; }
+        else { input.style.borderColor = 'var(--border)'; }
     });
-    
-    if (!isValid) {
-        alert('Please fill in all required fields');
-    }
-    
+
+    if (!isValid) alert('Please fill in all required fields');
     return isValid;
 }
 
-// Validate payment form
 function validatePaymentForm() {
-    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-    
-    if (paymentMethod === 'card') {
-        const cardName = document.getElementById('cardName').value.trim();
+    const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+    if (method === 'card') {
+        const cardName   = document.getElementById('cardName').value.trim();
         const cardNumber = document.getElementById('cardNumber').value.trim().replace(/\s/g, '');
         const cardExpiry = document.getElementById('cardExpiry').value.trim();
-        const cardCvv = document.getElementById('cardCvv').value.trim();
-        
-        if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
-            alert('Please fill in all card details');
-            return false;
-        }
-        
-        if (!/^\d+$/.test(cardNumber)) {
-            alert('Card number should contain only numbers');
-            return false;
-        }
-        
-        if (cardNumber.length < 13 || cardNumber.length > 19) {
-            alert('Invalid card number length');
-            return false;
-        }
-        
-        if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
-            alert('Invalid expiry date format (MM/YY)');
-            return false;
-        }
-        
-        if (!/^\d{3,4}$/.test(cardCvv)) {
-            alert('Invalid CVV');
-            return false;
-        }
-    } else if (paymentMethod === 'upi') {
+        const cardCvv    = document.getElementById('cardCvv').value.trim();
+        if (!cardName || !cardNumber || !cardExpiry || !cardCvv) { alert('Please fill in all card details'); return false; }
+        if (!/^\d+$/.test(cardNumber))                           { alert('Card number should contain only numbers'); return false; }
+        if (cardNumber.length < 13 || cardNumber.length > 19)   { alert('Invalid card number length'); return false; }
+        if (!/^\d{2}\/\d{2}$/.test(cardExpiry))                 { alert('Invalid expiry date format (MM/YY)'); return false; }
+        if (!/^\d{3,4}$/.test(cardCvv))                         { alert('Invalid CVV'); return false; }
+    } else if (method === 'upi') {
         const upiId = document.getElementById('upiId').value.trim();
-        const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z]+$/;
-        if (!upiId || !upiRegex.test(upiId)) {
-            alert('Please enter a valid UPI ID (e.g., yourname@bankname)');
-            return false;
-        }
-    } else if (paymentMethod === 'netbanking') {
-        const bankName = document.getElementById('bankName').value.trim();
-        if (!bankName) {
-            alert('Please select a bank');
-            return false;
-        }
-    } else if (paymentMethod === 'wallet') {
-        const walletName = document.getElementById('walletName').value.trim();
-        if (!walletName) {
-            alert('Please select a wallet');
-            return false;
-        }
+        if (!upiId || !/^[a-zA-Z0-9._-]+@[a-zA-Z]+$/.test(upiId)) { alert('Please enter a valid UPI ID'); return false; }
+    } else if (method === 'netbanking') {
+        if (!document.getElementById('bankName').value.trim())   { alert('Please select a bank'); return false; }
+    } else if (method === 'wallet') {
+        if (!document.getElementById('walletName').value.trim()) { alert('Please select a wallet'); return false; }
     }
-    
     return true;
 }
 
-// Save address data
 function saveAddressData() {
     orderData.address = {
         firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value,
-        city: document.getElementById('city').value,
-        state: document.getElementById('state').value,
-        zip: document.getElementById('zip').value,
-        country: document.getElementById('country').value
+        lastName:  document.getElementById('lastName').value,
+        email:     document.getElementById('email').value,
+        phone:     document.getElementById('phone').value,
+        address:   document.getElementById('address').value,
+        city:      document.getElementById('city').value,
+        state:     document.getElementById('state').value,
+        zip:       document.getElementById('zip').value,
+        country:   document.getElementById('country').value
     };
 }
 
-// Save payment data
 function savePaymentData() {
-    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-    
-    orderData.payment = {
-        method: paymentMethod
-    };
-    
-    if (paymentMethod === 'card') {
-        orderData.payment.cardName = document.getElementById('cardName').value;
+    const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+    orderData.payment = { method: method };
+    if (method === 'card') {
+        orderData.payment.cardName   = document.getElementById('cardName').value;
         orderData.payment.cardNumber = '****' + document.getElementById('cardNumber').value.slice(-4);
     }
 }
 
-// Display review
 function displayReview() {
     const addr = orderData.address;
-    const addressReview = document.getElementById('addressReview');
-    addressReview.innerHTML = `
-        <p><strong>${addr.firstName} ${addr.lastName}</strong></p>
-        <p>${addr.address}</p>
-        <p>${addr.city}, ${addr.state} ${addr.zip}</p>
-        <p>${addr.country}</p>
-        <p>Email: ${addr.email}</p>
-        <p>Phone: ${addr.phone}</p>
-    `;
-    
-    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-    const paymentLabels = {
-        'card': 'Credit/Debit Card',
-        'upi': 'UPI Payment',
-        'netbanking': 'Net Banking',
-        'wallet': 'Digital Wallet'
-    };
-    
-    const paymentReview = document.getElementById('paymentReview');
-    let paymentText = `<p><strong>${paymentLabels[paymentMethod]}</strong></p>`;
-    
-    if (paymentMethod === 'card') {
-        paymentText += `<p>${orderData.payment.cardName}</p>`;
-        paymentText += `<p>Card: ${orderData.payment.cardNumber}</p>`;
+    document.getElementById('addressReview').innerHTML =
+        '<p><strong>' + addr.firstName + ' ' + addr.lastName + '</strong></p>' +
+        '<p>' + addr.address + '</p>' +
+        '<p>' + addr.city + ', ' + addr.state + ' ' + addr.zip + '</p>' +
+        '<p>' + addr.country + '</p>' +
+        '<p>Email: ' + addr.email + '</p>' +
+        '<p>Phone: ' + addr.phone + '</p>';
+
+    const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const labels = { card: 'Credit/Debit Card', upi: 'UPI Payment', netbanking: 'Net Banking', wallet: 'Digital Wallet' };
+    let paymentText = '<p><strong>' + labels[method] + '</strong></p>';
+    if (method === 'card') {
+        paymentText += '<p>' + orderData.payment.cardName + '</p>';
+        paymentText += '<p>Card: ' + orderData.payment.cardNumber + '</p>';
     }
-    
-    paymentReview.innerHTML = paymentText;
+    document.getElementById('paymentReview').innerHTML = paymentText;
 }
 
-// Complete payment
 function completePayment() {
-    // Simulate payment processing
-    const modal = document.getElementById('successModal');
-    modal.classList.add('active');
-    
+    document.getElementById('successModal').classList.add('active');
+
     const orderId = 'RLC' + Date.now();
-    const orderDetails = document.getElementById('orderDetails');
-    orderDetails.innerHTML = `
-        <p><strong>Order ID:</strong> ${orderId}</p>
-        <p><strong>Order Total:</strong> ₹${orderData.total.toFixed(2)}</p>
-        <p><strong>Delivery Address:</strong> ${orderData.address.city}, ${orderData.address.state}</p>
-        <p><strong>Expected Delivery:</strong> 3-5 business days</p>
-    `;
-    
-    // Save order to localStorage
+    document.getElementById('orderDetails').innerHTML =
+        '<p><strong>Order ID:</strong> ' + orderId + '</p>' +
+        '<p><strong>Order Total:</strong> ₹' + orderData.total.toFixed(2) + '</p>' +
+        '<p><strong>Delivery Address:</strong> ' + orderData.address.city + ', ' + orderData.address.state + '</p>' +
+        '<p><strong>Expected Delivery:</strong> 3-5 business days</p>';
+
     const orders = JSON.parse(localStorage.getItem('ruralconnect_orders')) || [];
-    orders.push({
-        orderId: orderId,
-        date: new Date().toISOString(),
-        address: orderData.address,
-        payment: orderData.payment,
-        products: cartProducts,
-        total: orderData.total
-    });
+    orders.push({ orderId: orderId, date: new Date().toISOString(), address: orderData.address, payment: orderData.payment, products: cartProducts, total: orderData.total });
     localStorage.setItem('ruralconnect_orders', JSON.stringify(orders));
-    
-    // Clear cart
-    localStorage.removeItem('ruralconnect_products');
+
+    // ✅ Clear the correct key (dynamically detected)
+    localStorage.removeItem(activeCartKey);
 }
 
-// Go to home
-function goToHome() {
-    window.location.href = 'rural.html';
-}
+function goToHome() { window.location.href = 'rural.html'; }
 
-// Apply promo code
 function applyPromo() {
     const promoCode = document.getElementById('promoCode').value.trim().toUpperCase();
-    
-    if (!promoCode) {
-        alert('Please select a promo code');
-        return;
-    }
-    
+    if (!promoCode) { alert('Please select a promo code'); return; }
+
     const promo = promoCodes[promoCode];
-    
-    if (!promo) {
-        alert('Invalid promo code');
-        return;
-    }
-    
-    if (orderData.total < promo.minAmount) {
-        alert(`Minimum order amount of ₹${promo.minAmount} required for this promo code`);
-        return;
-    }
-    
-    let discountAmount = 0;
-    if (promo.type === 'percentage') {
-        discountAmount = orderData.subtotal * promo.discount;
-    } else {
-        discountAmount = promo.discount;
-    }
-    
+    if (!promo) { alert('Invalid promo code'); return; }
+    if (orderData.total < promo.minAmount) { alert('Minimum order amount of ₹' + promo.minAmount + ' required for this promo code'); return; }
+
+    const discountAmount = promo.type === 'percentage' ? orderData.subtotal * promo.discount : promo.discount;
     const newTotal = Math.max(0, orderData.total - discountAmount);
-    alert(`Promo code ${promoCode} applied! You saved ₹${discountAmount.toFixed(2)}`);
+    alert('Promo code ' + promoCode + ' applied! You saved ₹' + discountAmount.toFixed(2));
     document.getElementById('total').textContent = '₹' + newTotal.toFixed(2);
     orderData.total = newTotal;
 }
 
-// Setup card number formatting
 function setupCardFormatting() {
     const cardInput = document.getElementById('cardNumber');
     if (cardInput) {
         cardInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '');
-            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
-            e.target.value = formattedValue;
+            let v = e.target.value.replace(/\s/g, '');
+            e.target.value = v.replace(/(\d{4})/g, '$1 ').trim();
         });
     }
-    
     const expiryInput = document.getElementById('cardExpiry');
     if (expiryInput) {
         expiryInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2, 4);
-            }
-            e.target.value = value;
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2, 4);
+            e.target.value = v;
         });
     }
 }
 
-// Setup payment method listeners
 function setupPaymentMethodListeners() {
-    const paymentOptions = document.querySelectorAll('input[name="paymentMethod"]');
-    paymentOptions.forEach(option => {
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(function(option) {
         option.addEventListener('change', function() {
-            document.getElementById('card-form').style.display = this.value === 'card' ? 'block' : 'none';
-            document.getElementById('upi-form').style.display = this.value === 'upi' ? 'block' : 'none';
+            document.getElementById('card-form').style.display       = this.value === 'card'       ? 'block' : 'none';
+            document.getElementById('upi-form').style.display        = this.value === 'upi'        ? 'block' : 'none';
             document.getElementById('netbanking-form').style.display = this.value === 'netbanking' ? 'block' : 'none';
-            document.getElementById('wallet-form').style.display = this.value === 'wallet' ? 'block' : 'none';
+            document.getElementById('wallet-form').style.display     = this.value === 'wallet'     ? 'block' : 'none';
         });
     });
 }
 
-// Setup input restrictions
 function setupInputRestrictions() {
-    // Postal code - numbers only
-    const zipInput = document.getElementById('zip');
-    if (zipInput) {
-        zipInput.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-    }
-    
-    // Card number - numbers only
-    const cardNumber = document.getElementById('cardNumber');
-    if (cardNumber) {
-        cardNumber.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^0-9]/g, '');
-            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
-            e.target.value = formattedValue;
-        });
-    }
-    
-    // CVV - numbers only
-    const cardCvv = document.getElementById('cardCvv');
-    if (cardCvv) {
-        cardCvv.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-    }
+    var zipInput = document.getElementById('zip');
+    if (zipInput) zipInput.addEventListener('input', function(e) { e.target.value = e.target.value.replace(/[^0-9]/g, ''); });
+
+    var cardNumber = document.getElementById('cardNumber');
+    if (cardNumber) cardInput.addEventListener('input', function(e) {
+        var v = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = v.replace(/(\d{4})/g, '$1 ').trim();
+    });
+
+    var cardCvv = document.getElementById('cardCvv');
+    if (cardCvv) cardCvv.addEventListener('input', function(e) { e.target.value = e.target.value.replace(/[^0-9]/g, ''); });
 }
 
-// Update city and state based on country
 function updateCityState() {
-    const country = document.getElementById('country').value.toLowerCase();
-    const citySelect = document.getElementById('city');
-    const stateSelect = document.getElementById('state');
-    
-    // Clear existing options
-    citySelect.innerHTML = '<option value="">Select city</option>';
+    var country     = document.getElementById('country').value.toLowerCase();
+    var citySelect  = document.getElementById('city');
+    var stateSelect = document.getElementById('state');
+
+    citySelect.innerHTML  = '<option value="">Select city</option>';
     stateSelect.innerHTML = '<option value="">Select state</option>';
-    
+
     if (!country || !locationData[country]) {
-        citySelect.disabled = true;
-        stateSelect.disabled = true;
+        citySelect.disabled = stateSelect.disabled = true;
         return;
     }
-    
-    const data = locationData[country];
-    
-    // Populate states
-    data.states.forEach(state => {
-        const option = document.createElement('option');
-        option.value = state;
-        option.textContent = state;
-        stateSelect.appendChild(option);
+
+    var data = locationData[country];
+    data.states.forEach(function(state) {
+        var opt = document.createElement('option');
+        opt.value = opt.textContent = state;
+        stateSelect.appendChild(opt);
     });
-    
     stateSelect.disabled = false;
-    
-    // Update cities when state changes
+
     stateSelect.addEventListener('change', function() {
-        const state = this.value;
+        var state = this.value;
         citySelect.innerHTML = '<option value="">Select city</option>';
-        
         if (state && data.cities[state]) {
-            data.cities[state].forEach(city => {
-                const option = document.createElement('option');
-                option.value = city;
-                option.textContent = city;
-                citySelect.appendChild(option);
+            data.cities[state].forEach(function(city) {
+                var opt = document.createElement('option');
+                opt.value = opt.textContent = city;
+                citySelect.appendChild(opt);
             });
             citySelect.disabled = false;
         } else {
@@ -522,4 +445,3 @@ function updateCityState() {
         }
     }, { once: true });
 }
-

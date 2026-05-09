@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+ <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RuralConnect – Seller Sign Up</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  
+  <!-- ✅ defer hatao -->
+  <script src="api.js"></script>
+
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     :root {
@@ -336,7 +340,7 @@
     </div>
 
     <div style="text-align:center;margin-top:22px;color:var(--brown4);font-size:.88rem;">
-      Already have an account? <a href="#" style="color:var(--brown2);font-weight:700;text-decoration:none;">Log in</a>
+      Already have an account? <a href="seller-login.html" style="color:var(--brown2);font-weight:700;text-decoration:none;">Log in</a>
       &nbsp;|&nbsp; Shopping? <a href="buyer-signup.html" style="color:var(--brown2);font-weight:700;text-decoration:none;">Sign up as Buyer</a>
     </div>
   </div>
@@ -383,9 +387,9 @@
               <span class="icon">📂</span>
               <select id="p-cat" style="padding-left:40px;">
                 <option value="" disabled selected>Select Category</option>
-                <option>Men Fashion</option><option>Women Fashion</option><option>Handicraft</option>
-                <option>Pottery</option><option>Wooden Furniture</option><option>Toys</option>
-                <option>Ornaments</option><option>Home Decor</option><option>Crochets</option><option>Vegetables</option>
+                <option>Men Fashion</option><option>Women Fashion</option><option>Bamboo</option>
+                <option>Pottery</option><option>Carpets</option><option>Handloom</option>
+                <option>Jeweley<option>Leather</option><option>Metal Craft</option><option>Painting</option><option>Wooden</option>
               </select>
             </div>
             <button type="button" class="mic-btn" data-tip="What to enter here"
@@ -457,7 +461,7 @@
       <div class="success-icon">🎉</div>
       <h2>You're live on RuralConnect!</h2>
       <p>Your seller account has been created and your products are now visible to buyers across India. Welcome to our artisan community.</p>
-      <button class="btn-primary" style="padding:16px 40px;" onclick="showToast('🚀 Redirecting to your dashboard...')">Go to Seller Dashboard →</button>
+      <button class="btn-primary" style="padding:16px 40px;" onclick=goToDashboard()</button>
     </div>
     <div id="summaryGrid" style="margin-top:20px;"></div>
   </div>
@@ -579,22 +583,52 @@
     zone.querySelector('p').style.display='';
   }
 
-  /* ── Finish ── */
-  function finishSignup() {
-    if (products.length===0 && !confirm('No products added yet. Finish registration anyway?')) return;
-    setScreen(3);
-    const sg=document.getElementById('summaryGrid');
-    if (products.length>0) {
-      sg.innerHTML=`<p style="text-align:center;color:var(--brown4);font-size:.88rem;margin-bottom:16px;">
-        You added <strong>${products.length} product${products.length>1?'s':''}</strong> — now visible in your seller inventory.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">
-        ${products.map(p=>`<div style="background:var(--cream);border-radius:10px;overflow:hidden;border:1px solid var(--blush);">
-          <div style="height:90px;background:var(--blush);display:flex;align-items:center;justify-content:center;overflow:hidden;">
-          ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover">`:'<span style="font-size:28px">🧺</span>'}
-          </div>
-          <div style="padding:8px;font-size:.78rem;font-weight:700;color:var(--dark)">${p.name}</div>
-        </div>`).join('')}
-        </div>`;
+  /* ── Finish → calls API ── */
+  async function finishSignup() {
+    if (products.length === 0 && !confirm('No products added yet. Finish registration anyway?')) return;
+    const btn = document.querySelector('#screen2 .btn-primary');
+    btn.disabled = true; btn.textContent = '⏳ Saving…';
+    try {
+      const sellerData = {
+        name:     document.getElementById('s-name').value.trim(),
+        phone:    document.getElementById('s-phone').value.trim(),
+        password: document.getElementById('s-password').value,
+        shop:     document.getElementById('s-shop').value.trim(),
+        street:   document.getElementById('s-street').value.trim(),
+        city:     document.getElementById('s-city').value.trim(),
+        district: document.getElementById('s-district').value.trim(),
+        state:    document.getElementById('s-state').value,
+        pin:      document.getElementById('s-pin').value.trim(),
+      };
+      const res = await RuralAPI.register(sellerData);
+
+      // SAVE TOKEN
+      localStorage.setItem("sellerToken", res.token);
+      if (products.length > 0) {
+        const payload = products.map(p => ({
+          name: p.name, category: p.cat, price: p.price||'',
+          stock: p.stock||'', description: p.desc||'', image_base64: p.img||null,
+        }));
+        await RuralAPI.addProductsBulk(payload);
+      }
+      setScreen(3);
+      // render summary
+      const sg = document.getElementById('summaryGrid');
+      if (products.length > 0) {
+        sg.innerHTML = `<p style="text-align:center;color:var(--brown4);font-size:.88rem;margin-bottom:16px;">
+          You added <strong>${products.length} product${products.length>1?'s':''}</strong> — now live in the marketplace!</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">
+          ${products.map(p=>`<div style="background:var(--cream);border-radius:10px;overflow:hidden;border:1px solid var(--blush);">
+            <div style="height:90px;background:var(--blush);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+            ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover">`:'<span style="font-size:28px">\u{1F9BA}</span>'}
+            </div>
+            <div style="padding:8px;font-size:.78rem;font-weight:700;color:var(--dark)">${p.name}</div>
+          </div>`).join('')}
+          </div>`;
+      }
+    } catch(err) {
+      showToast('❌ ' + (err.message || 'Registration failed'));
+      btn.disabled = false; btn.textContent = '🚀 Complete Registration';
     }
   }
 
@@ -623,6 +657,13 @@
     hint.style.color = cf===pw ? '#5c9e52' : '#c0392b';
   }
 
+  function goToDashboard() {
+  showToast('🚀 Redirecting to your dashboard...');
+
+  setTimeout(() => {
+    window.location.href = "rural.html"; // your dashboard page
+  }, 1000);
+  }
   /* ── Toast ── */
   function showToast(msg) {
     const t=document.getElementById('toast');

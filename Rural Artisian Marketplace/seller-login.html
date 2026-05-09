@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RuralConnect – Seller Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <script src="api.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--dark:#36241C;--brown2:#4D3328;--brown3:#644234;--brown4:#815F51;--tan:#AA8B7E;--sand:#D3B6AB;--blush:#E6D5CE;--cream:#F0E5E1;--white:#F9F5F3;}
+    body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+    .card{background:var(--white);border-radius:20px;padding:48px 52px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(54,36,28,.12);}
+    .card h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--dark);margin-bottom:6px;}
+    .card p{color:var(--brown4);font-size:.9rem;margin-bottom:32px;}
+    .field{margin-bottom:20px;}
+    label{display:block;font-size:.75rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--brown2);margin-bottom:7px;}
+    input{width:100%;padding:12px 14px;border:1.5px solid var(--blush);border-radius:10px;background:var(--cream);color:var(--dark);font-size:.93rem;font-family:'Lato',sans-serif;outline:none;transition:border-color .2s;}
+    input:focus{border-color:var(--brown3);background:var(--white);}
+    .btn{width:100%;padding:14px;background:var(--brown2);color:var(--white);font-family:'Lato',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;margin-top:10px;transition:background .2s;}
+    .btn:hover{background:var(--dark);}
+    .links{text-align:center;margin-top:20px;color:var(--brown4);font-size:.88rem;}
+    .links a{color:var(--brown2);font-weight:700;text-decoration:none;}
+    .error{color:#c0392b;font-size:.85rem;margin-top:8px;display:none;}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Welcome back 🌾</h1>
+  <p>Login to manage your products and seller dashboard.</p>
+
+  <div class="field">
+    <label>Phone Number</label>
+    <input type="tel" id="phone" placeholder="10-digit number" maxlength="10"/>
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"/>
+  </div>
+  <div class="error" id="err"></div>
+  <button class="btn" onclick="doLogin()" id="loginBtn">Login to Dashboard →</button>
+
+  <div class="links">
+    New seller? <a href="seller-signup.html">Create account</a>
+    &nbsp;|&nbsp; <a href="rural.html">Back to Home</a>
+  </div>
+</div>
+
+<script>
+  // If already logged in, go to home
+  if (RuralAPI.isLoggedIn()) window.location.href = 'rural.html';
+
+  async function doLogin() {
+    const phone = document.getElementById('phone').value.trim();
+    const pass  = document.getElementById('password').value;
+    const err   = document.getElementById('err');
+    const btn   = document.getElementById('loginBtn');
+    err.style.display = 'none';
+    if (!phone || !pass) { err.textContent = '⚠️ Please enter phone and password.'; err.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = '⏳ Logging in…';
+    try {
+      await RuralAPI.login(phone, pass);
+      window.location.href = 'rural.html';
+    } catch(e) {
+      err.textContent = '❌ ' + (e.message || 'Login failed');
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Login to Dashboard →';
+    }
+  }
+</script>
+</body>
+</html>
